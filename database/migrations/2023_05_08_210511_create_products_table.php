@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string("cover_image")->nullable();
             $table->boolean("new_product")->nullable();
             $table->string("spot_text")->nullable();
+            $table->foreignId("category_id")->references("id")->on("categories");
+            $table->foreignId("subcategory_id")->references("id")->on("subcategories");
 
         });
     }
