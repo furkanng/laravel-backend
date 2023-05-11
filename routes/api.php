@@ -19,7 +19,10 @@ Route::post('login',[AuthController::class,'login']);
 // jwt check
 Route::group(['middleware'=>['api']],function (){
     Route::get('test',function (){
-        return response()->json('successs');
+        $email = auth()->user();
+
+
+        return response()->json($email);
     });
 });
 
