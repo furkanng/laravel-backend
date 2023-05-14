@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('features', function (Blueprint $table) {
             $table->id();
             $table->string("name")->nullable();
+            $table->json("variant_id")->nullable();
             $table->boolean("status")->default(1);
         });
     }

@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->boolean('status')->nullable()->default(true);
             $table->date('birth_date')->nullable();
+            $table->rememberToken();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
-            $table->rememberToken();
         });
     }
 

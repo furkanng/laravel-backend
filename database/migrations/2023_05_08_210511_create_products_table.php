@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string("title")->nullable();
             $table->double("price")->nullable();
-            $table->boolean("status")->default(true);
             $table->integer("stock")->nullable();
             $table->string("code")->nullable();
             $table->dateTime("date")->nullable();
@@ -25,7 +24,8 @@ return new class extends Migration
             $table->string("spot_text")->nullable();
             $table->foreignId("category_id")->references("id")->on("categories");
             $table->foreignId("subcategory_id")->references("id")->on("subcategories");
-
+            $table->json("feature_id")->nullable();
+            $table->boolean("status")->default(true);
         });
     }
 
