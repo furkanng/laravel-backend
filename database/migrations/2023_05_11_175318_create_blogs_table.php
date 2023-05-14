@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('status')->default(true);
             $table->string('image')->nullable();
             $table->string('spot_text')->nullable();
+            $table->boolean('status')->default(true);
         });
     }
 

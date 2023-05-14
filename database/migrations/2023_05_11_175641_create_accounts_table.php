@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('bank_name')->nullable();
             $table->string('name')->nullable();
-            $table->boolean('status')->default(true);
             $table->string('image')->nullable();
             $table->string('account_number')->nullable();
             $table->string('branch_name')->nullable();
             $table->string('iban')->nullable();
-
+            $table->boolean('status')->default(true);
         });
     }
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('work_hours')->nullable();
             $table->string('phone')->nullable();
             $table->string('fax')->nullable();
-
+            $table->text("map")->nullable();
         });
     }
 

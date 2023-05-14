@@ -15,13 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->text('address')->nullable();
-            $table->boolean('status')->default(true);
             $table->string('phone')->nullable();
             $table->string('gsm')->nullable();
             $table->string('email')->nullable();
             $table->string('city')->nullable();
-
             $table->string('district')->nullable();
+            $table->boolean('status')->default(true);
 
         });
     }

@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->string("name")->nullable();
             $table->boolean("status")->default(1);
-            $table->foreignId("variant_id")->references("id")->on("variants");
         });
     }
 

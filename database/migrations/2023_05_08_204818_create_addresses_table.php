@@ -25,8 +25,8 @@ return new class extends Migration
             $table->string("tax_number")->nullable();
             $table->string("tax_area")->nullable();
             $table->string("company_name")->nullable();
-            $table->boolean("status")->default(true);
             $table->foreignId("user_id")->references("id")->on("users");
+            $table->boolean("status")->default(true);
         });
     }
 
