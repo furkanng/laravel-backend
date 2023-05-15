@@ -1,29 +1,19 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Front\AuthController as FrontAuth;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\AuthController;
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-Route::post('register',[AuthController::class,'register']);
-Route::post('login',[AuthController::class,'login']);
 
-// jwt check
-Route::group(['middleware'=>['api']],function (){
-    Route::get('test',function (){
-        $email = auth()->user();
-
-
-        return response()->json($email);
-    });
+//ADMIN API KODLARI
+Route::prefix('admin')->middleware("api")->group(function () {
+    Route::post('/login', [AuthController::class, "login"]);
+    Route::post('/register', [AuthController::class, "register"]);
+    Route::post('/logout', [AuthController::class, "logout"]);
 });
 
+//FRONT API KODLARI
+Route::middleware("api")->group(function () {
+    Route::post('/register', [FrontAuth::class, "register"]);
+});
 
+//MIDDLEWARE OLMAYAN API KODLARI ("forgotPassword","resetPassword" vb.)
