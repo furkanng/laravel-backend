@@ -3,11 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Admin extends Model
+class Admin extends Authenticatable implements JWTSubject
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
+
+    protected $guarded = "admin-api";
 
     protected $primaryKey = "id";
     protected $table = "admin";
@@ -16,10 +21,21 @@ class Admin extends Model
         "id",
         "name",
         "surname",
-        "mail",
+        "email",
         "password",
         "status",
         "created_at",
         "updated_at"
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
 }
