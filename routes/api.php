@@ -5,7 +5,7 @@ use App\Http\Controllers\Front\AuthController as FrontAuth;
 use Illuminate\Support\Facades\Route;
 
 //ADMIN API KODLARI
-Route::prefix('admin')->middleware("api")->group(function () {
+Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::post('/login', [AuthController::class, "login"]);
     Route::post('/register', [AuthController::class, "register"]);
     Route::post('/logout', [AuthController::class, "logout"]);
