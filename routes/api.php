@@ -14,6 +14,9 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
 //FRONT API KODLARI
 Route::middleware("api")->group(function () {
     Route::post('/register', [FrontAuth::class, "register"]);
+    Route::post('/login',[FrontAuth::class,'login']);
+    Route::post('/logout',[FrontAuth::class,'logout']);
+
 });
 
 //MIDDLEWARE OLMAYAN API KODLARI ("forgotPassword","resetPassword" vb.)
