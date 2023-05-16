@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminLoginRequest;
+use App\Http\Requests\AdminRegisterRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +16,7 @@ class AuthController extends Controller
         $this->middleware('auth:admin-api', ['except' => ['login', 'register']]);
     }
 
-    public function register(Request $request)
+    public function register(AdminRegisterRequest $request)
     {
         $user = new Admin();
         $user->name = $request->name;
@@ -38,7 +40,7 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function login(AdminLoginRequest $request)
     {
         $credentials = $request->only("email", "password");
         $token = \auth()->guard("admin-api")->attempt($credentials);
