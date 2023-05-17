@@ -28,13 +28,13 @@ class AuthController extends Controller
 
         if ($result) {
             return response()->json([
-                "status" => "success",
+                "status" => true,
                 "message" => "User Registered Successfully",
                 "data" => $user,
             ]);
         } else {
             return response()->json([
-                "status" => "fail",
+                "status" => false,
                 "message" => "User Registered Not Successfully",
             ], 401);
         }
@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         if (!$token) {
             return response()->json([
-                "status" => "error",
+                "status" => false,
                 "message" => "Login Failed"
             ]);
         }
@@ -68,6 +68,9 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-        return response()->json(['message' => 'User successfully signed out']);
+        response()->json([
+            "status" => true,
+            "message" => "User successfully logout"
+        ]);
     }
 }

@@ -11,6 +11,7 @@ class Page extends Model
 
     protected $primaryKey = "id";
     protected $table = "pages";
+    public $timestamps = false;
 
     protected $fillable = [
         "id",
