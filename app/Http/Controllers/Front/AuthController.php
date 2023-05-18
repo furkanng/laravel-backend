@@ -15,65 +15,66 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api',['except' =>['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
 
     }
 
-    public function  register(FrontRegisterRequest $req){
+    public function register(FrontRegisterRequest $req)
+    {
 
         $user = new User();
 
         $user->name = $req->name;
         $user->surname = $req->surname;
         $user->email = $req->email;
-        $user->password= Hash::make($req->password);
+        $user->password = Hash::make($req->password);
         $user->phone = $req->phone;
         $user->birth_date = $req->birth_date;
 
         $result = $user->save();
 
-        if($result){
+        if ($result) {
             return response()->json([
-                "status"=>"success",
-                "message"=>"User created successfully",
-                "data"=>$user
+                "status" => true,
+                "message" => "User created successfully",
+                "data" => $user
             ]);
-        }
-        else{
+        } else {
             return response()->json([
-               "status"=>"error",
-               "message"=>"User created not successfully"
-            ],401);
+                "status" => false,
+                "message" => "User created not successfully"
+            ], 401);
         }
     }
 
-    public function  login(FrontLoginRequest $req){
-        $credentials = $req->only('email','password');
+    public function login(FrontLoginRequest $req)
+    {
+        $credentials = $req->only('email', 'password');
         $token = auth()->guard('api')->attempt($credentials);
 
-        if(!$token){
+        if (!$token) {
             return response()->json([
-                "status"=>"error",
-                "message"=>"Token can not create"
+                "status" => false,
+                "message" => "Token can not create"
             ]);
         }
 
         return response()->json([
-            "access_token"=>$token,
-            "token_type"=>"bearer",
+            "access_token" => $token,
+            "token_type" => "bearer",
             "expires_in" => auth()->factory()->getTTL() * 60,
-            "user"=>auth()->guard('api')->user()
+            "user" => auth()->guard('api')->user()
 
         ]);
     }
 
-    public function  logout(){
+    public function logout()
+    {
         auth()->logout();
         response()->json([
-            "message"=>"User successfully logout"
+            "status" => true,
+            "message" => "User successfully logout"
         ]);
-
-        Mail::to(new SendMail());
     }
 
 }
