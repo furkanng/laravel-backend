@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\ReferenceCotroller;
+use App\Http\Controllers\Admin\SocialMediaController;
 use App\Http\Controllers\Front\AuthController as FrontAuth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/pages', PagesController::class);
     Route::resource('/references', ReferenceCotroller::class);
     Route::resource('/documents', ReferenceCotroller::class);
+    Route::resource('/socialmedia-setting', SocialMediaController::class);
 });
 
 //FRONT API KODLARI
@@ -25,3 +28,6 @@ Route::middleware("api")->group(function () {
 });
 
 //MIDDLEWARE OLMAYAN API KODLARI ("forgotPassword","resetPassword" vb.)
+
+Route::post("/admin/forgot-password", [AdminController::class, "forgotPassword"])->name("forgot.password");
+Route::post("/admin/reset-password", [AdminController::class, "resetPassword"])->name("reset.password");

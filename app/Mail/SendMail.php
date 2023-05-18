@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Helper\MailControl;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,12 +14,19 @@ class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $data;
+    public $template;
+
+    public $address;
+    public $subject;
+
+
+    public function __construct($template, $data, $address, $subject)
     {
-        //
+        $this->template = $template;
+        $this->data = $data;
+        $this->address = $address;
+        $this->subject = $subject;
     }
 
     /**
@@ -27,7 +35,8 @@ class SendMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Send Mail',
+            to: $this->address,
+            subject: $this->subject,
         );
     }
 
@@ -37,7 +46,7 @@ class SendMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: $this->template,
         );
     }
 

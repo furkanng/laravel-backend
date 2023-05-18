@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\FtpControl;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PageRequest;
 use App\Models\Page;
@@ -62,7 +63,7 @@ class PagesController extends Controller
 
             $image = $data->image;
 
-            if (isset($image)) {
+            if (isset($image) && FtpControl::FtpLicanceControl()) {
                 $filename = $data->title . "." . $image->getClientOriginalExtension();
                 $image->storeAs("/page", $filename);
                 $data->image = $filename;
@@ -152,7 +153,7 @@ class PagesController extends Controller
             }
 
             //ftp ye resmim yüklüyor. veritabanına title ile aynı isimde resim yolu yazıyor. böyle yap silerken lazım olucak.
-            if (isset($image)) {
+            if (isset($image) && FtpControl::FtpLicanceControl()) {
                 $filename = $data->title . "." . $image->getClientOriginalExtension();
                 $image->storeAs("/page", $filename);
                 $data->image = $filename;

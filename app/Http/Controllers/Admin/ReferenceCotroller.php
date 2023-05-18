@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\FtpControl;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RefenceRequest;
 use App\Models\Reference;
@@ -59,7 +60,7 @@ class ReferenceCotroller extends Controller
 
             $image = $data->image;
 
-            if (isset($image)) {
+            if (isset($image)&& FtpControl::FtpLicanceControl()) {
                 $filename = $data->title . "." . $image->getClientOriginalExtension();
                 $image->storeAs("/reference", $filename);
                 $data->image = $filename;
@@ -144,7 +145,7 @@ class ReferenceCotroller extends Controller
             }
 
             //ftp ye resmim yüklüyor. veritabanına title ile aynı isimde resim yolu yazıyor. böyle yap silerken lazım olucak.
-            if (isset($image)) {
+            if (isset($image)&& FtpControl::FtpLicanceControl()) {
                 $filename = $data->title . "." . $image->getClientOriginalExtension();
                 $image->storeAs("/reference", $filename);
                 $data->image = $filename;
