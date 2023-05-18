@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\ReferenceCotroller;
 use App\Http\Controllers\Admin\SocialMediaController;
 use App\Http\Controllers\Front\AuthController as FrontAuth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Front\UserController;
 //ADMIN API KODLARI
 Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::post('/login', [AuthController::class, "login"]);
@@ -31,3 +31,7 @@ Route::middleware("api")->group(function () {
 
 Route::post("/admin/forgot-password", [AdminController::class, "forgotPassword"])->name("forgot.password");
 Route::post("/admin/reset-password", [AdminController::class, "resetPassword"])->name("reset.password");
+
+// FRONT  API KODLARI
+Route::post('/forgot-password',[UserController::class,'forgotPassword']);
+Route::post('/reset-password',[UserController::class,'resetPassword']);
