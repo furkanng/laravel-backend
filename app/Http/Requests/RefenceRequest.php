@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PageRequest extends FormRequest
+class RefenceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,6 @@ class PageRequest extends FormRequest
     {
         return [
             "title" => "string|required|sometimes",
-            "description" => "string",
             "image" => "mimes:jpeg,png,jpg",
         ];
     }

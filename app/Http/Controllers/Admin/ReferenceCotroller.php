@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PageRequest;
-use App\Models\Page;
+use App\Http\Requests\RefenceRequest;
+use App\Models\Reference;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
-class PagesController extends Controller
+class ReferenceCotroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +19,7 @@ class PagesController extends Controller
 
         if ($user) {
             //Son veriye göre sırala
-            $data = Page::query()->orderBy("id", "DESC")->get();
+            $data = Reference::query()->orderBy("id", "DESC")->get();
 
             return response()->json([
                 "status" => true,
@@ -36,27 +35,25 @@ class PagesController extends Controller
         }
     }
 
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PageRequest $request)
+    public function store(RefenceRequest $request)
     {
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
 
-            $data = new Page();
+            $data = new Reference();
             $data->title = $request->get("title");
-            $data->description = $request->get("description");
             $data->image = $request->file("image");
             $data->status = $request->get("status", true);
 
@@ -64,7 +61,7 @@ class PagesController extends Controller
 
             if (isset($image)) {
                 $filename = $data->title . "." . $image->getClientOriginalExtension();
-                $image->storeAs("/page", $filename);
+                $image->storeAs("/reference", $filename);
                 $data->image = $filename;
             }
 
@@ -107,7 +104,7 @@ class PagesController extends Controller
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
-            $data = Page::findOrFail($id);
+            $data = Reference::findOrFail($id);
 
             return response()->json([
                 "status" => true,
@@ -126,25 +123,20 @@ class PagesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($id, PageRequest $request)//Request yazmayı unutma !!
+    public function update(RefenceRequest $request, string $id)
     {
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
-            $data = Page::findOrFail($id);
+            $data = Reference::findOrFail($id);
 
             $title = $request->get("title");
-            $description = $request->get("description");
             $image = $request->file("image");
             $status = $request->get("status");
 
             //gelen veri varsa update ediyor yoksa eski veriler kalıyor
             if (isset($title)) {
                 $data->title = $title;
-            }
-
-            if (isset($description)) {
-                $data->description = $description;
             }
 
             if (isset($status)) {
@@ -154,7 +146,7 @@ class PagesController extends Controller
             //ftp ye resmim yüklüyor. veritabanına title ile aynı isimde resim yolu yazıyor. böyle yap silerken lazım olucak.
             if (isset($image)) {
                 $filename = $data->title . "." . $image->getClientOriginalExtension();
-                $image->storeAs("/page", $filename);
+                $image->storeAs("/reference", $filename);
                 $data->image = $filename;
             }
 
@@ -184,20 +176,20 @@ class PagesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, string $id)
+    public function destroy(string $id)
     {
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
-            $page = Page::findOrFail($id);
+            $data = Reference::findOrFail($id);
 
             //veriyi silerken aynı zamanda ftp deki resim varsa onu da silmeye yarıyor.
-            if ($page->image > 0) {
-                Storage::disk("ftp")->delete("page/" . $page->image);
+            if ($data->image > 0) {
+                Storage::disk("ftp")->delete("reference/" . $data->image);
             }
 
 
-            $result = $page->delete();
+            $result = $data->delete();
 
             if ($result) {
                 return response()->json([

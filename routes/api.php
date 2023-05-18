@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\ReferenceCotroller;
 use App\Http\Controllers\Front\AuthController as FrontAuth;
 use Illuminate\Support\Facades\Route;
 
@@ -11,9 +11,9 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::post('/login', [AuthController::class, "login"]);
     Route::post('/register', [AuthController::class, "register"]);
     Route::post('/logout', [AuthController::class, "logout"]);
-    //Route::resource('/pages', PagesController::class);
-    Route::post("/pages/update/{id}",[PageController::class,"update"]);
-
+    Route::resource('/pages', PagesController::class);
+    Route::resource('/references', ReferenceCotroller::class);
+    Route::resource('/documents', ReferenceCotroller::class);
 });
 
 //FRONT API KODLARI
