@@ -51,6 +51,5 @@ class AppServiceProvider extends ServiceProvider
         ];
 
         \config()->set("filesystems.disks.ftp", $ftp);
-
     }
 }

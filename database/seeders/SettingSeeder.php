@@ -15,8 +15,8 @@ class SettingSeeder extends Seeder
     {
         $defaultData =
             [
-                ['title' => 'Set Mailer User Title', 'key' => 'mailer_from_name', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],
-                ['title' => 'Set Mailer User Driver', 'key' => 'mailer_driver', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],
+                ['title' => 'Set Mailer Title', 'key' => 'mailer_from_name', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],
+                ['title' => 'Set Mailer Driver', 'key' => 'mailer_driver', 'value' => 'smtp', "type" => 'text', "group_key" => 'email_settings'],
                 ['title' => 'Set Mailer From', 'key' => 'mailer_from_address', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],
                 ['title' => 'Set Mailer Port', 'key' => 'mailer_port', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],
                 ['title' => 'Set Mailer Password', 'key' => 'mailer_password', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],
@@ -35,12 +35,16 @@ class SettingSeeder extends Seeder
                 ['title' => 'Set Site Title', 'key' => 'site_title', 'value' => '', "type" => 'text', "group_key" => 'general_settings'],
                 ['title' => 'Set Site Keywords', 'key' => 'site_keywords', 'value' => '', "type" => 'text', "group_key" => 'general_settings'],
                 ['title' => 'Set Site Description', 'key' => 'site_description', 'value' => '', "type" => 'text', "group_key" => 'general_settings'],
-                ['title' => 'Set Site Copyright', 'key' => 'site_copyright', 'value' => '', "type" => 'text', "group_key" => 'general_settings'],
                 ['title' => 'Set Url Facebook', 'key' => 'media_facebook', 'value' => '', "type" => 'text', "group_key" => 'socialMedia_settings'],
                 ['title' => 'Set Url Instagram', 'key' => 'media_instagram', 'value' => '', "type" => 'text', "group_key" => 'socialMedia_settings'],
                 ['title' => 'Set Url Twitter', 'key' => 'media_twitter', 'value' => '', "type" => 'text', "group_key" => 'socialMedia_settings'],
                 ['title' => 'Set Url Linkedin', 'key' => 'media_linkedin', 'value' => '', "type" => 'text', "group_key" => 'socialMedia_settings'],
                 ['title' => 'Set Url Youtube', 'key' => 'media_youtube', 'value' => '', "type" => 'text', "group_key" => 'socialMedia_settings'],
+                ['title' => 'Set Contact Phone', 'key' => 'contact_phone', 'value' => '', "type" => 'text', "group_key" => 'contact_settings'],
+                ['title' => 'Set Contact Title', 'key' => 'contact_title', 'value' => '', "type" => 'text', "group_key" => 'contact_settings'],
+                ['title' => 'Set Contact Fax', 'key' => 'contact_fax', 'value' => '', "type" => 'text', "group_key" => 'contact_settings'],
+                ['title' => 'Set Contact Email', 'key' => 'contact_email', 'value' => '', "type" => 'text', "group_key" => 'contact_settings'],
+                ['title' => 'Set Contact Address', 'key' => 'contact_address', 'value' => '', "type" => 'text', "group_key" => 'contact_settings'],
             ];
 
         Setting::query()->insert($defaultData);
