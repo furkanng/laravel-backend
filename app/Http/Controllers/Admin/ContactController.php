@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SMediaRequest;
+use App\Http\Requests\ContactRequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
-class SocialMediaController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class SocialMediaController extends Controller
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
-            $settingsMedia = Setting::query()->where("group_key", "socialMedia_settings")->get();
+            $settingsMedia = Setting::query()->where("group_key", "contact_settings")->get();
             $data = [];
 
             foreach ($settingsMedia as $key) {
@@ -49,16 +49,16 @@ class SocialMediaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SMediaRequest $request)
+    public function store(ContactRequest $request)
     {
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
-            Setting::query()->where("key", "media_youtube")->update(["value" => $request->get("media_youtube")]);
-            Setting::query()->where("key", "media_facebook")->update(["value" => $request->get("media_facebook")]);
-            Setting::query()->where("key", "media_twitter")->update(["value" => $request->get("media_twitter")]);
-            Setting::query()->where("key", "media_instagram")->update(["value" => $request->get("media_instagram")]);
-            Setting::query()->where("key", "media_linkedin")->update(["value" => $request->get("media_linkedin")]);
+            Setting::query()->where("key", "contact_phone")->update(["value" => $request->get("contact_phone")]);
+            Setting::query()->where("key", "contact_title")->update(["value" => $request->get("contact_title")]);
+            Setting::query()->where("key", "contact_fax")->update(["value" => $request->get("contact_fax")]);
+            Setting::query()->where("key", "contact_email")->update(["value" => $request->get("contact_email")]);
+            Setting::query()->where("key", "contact_address")->update(["value" => $request->get("contact_address")]);
 
             return response()->json([
                 "status" => true,
