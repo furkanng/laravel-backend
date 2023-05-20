@@ -12,9 +12,10 @@ class Bulletin extends Model
     protected $primaryKey = "id";
     protected $table = "bulletin";
 
+    public $timestamps = false;
     protected $fillable = [
         "id",
-        "mail",
+        "email",
         "date",
         "ip",
     ];
