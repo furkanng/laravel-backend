@@ -12,6 +12,7 @@ class Setting extends Model
     protected $primaryKey = "id";
 
     protected $table = "settings";
+    public $timestamps = false;
 
     protected $fillable = [
         "id",

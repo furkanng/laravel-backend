@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SMediaRequest;
+use App\Http\Requests\MailRequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
-class SocialMediaController extends Controller
+class MailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class SocialMediaController extends Controller
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
-            $settingsMedia = Setting::query()->where("group_key", "socialMedia_settings")->get();
+            $settingsMedia = Setting::query()->where("group_key", "email_settings")->get();
             $data = [];
 
             foreach ($settingsMedia as $key) {
@@ -49,16 +49,19 @@ class SocialMediaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SMediaRequest $request)
+    public function store(MailRequest $request)
     {
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
-            Setting::query()->where("key", "media_youtube")->update(["value" => $request->get("media_youtube")]);
-            Setting::query()->where("key", "media_facebook")->update(["value" => $request->get("media_facebook")]);
-            Setting::query()->where("key", "media_twitter")->update(["value" => $request->get("media_twitter")]);
-            Setting::query()->where("key", "media_instagram")->update(["value" => $request->get("media_instagram")]);
-            Setting::query()->where("key", "media_linkedin")->update(["value" => $request->get("media_linkedin")]);
+            Setting::query()->where("key", "mailer_encryption")->update(["value" => $request->get("mailer_encryption")]);
+            Setting::query()->where("key", "mailer_host")->update(["value" => $request->get("mailer_host")]);
+            Setting::query()->where("key", "mailer_password")->update(["value" => $request->get("mailer_password")]);
+            Setting::query()->where("key", "mailer_username")->update(["value" => $request->get("mailer_username")]);
+            Setting::query()->where("key", "mailer_port")->update(["value" => $request->get("mailer_port")]);
+            Setting::query()->where("key", "mailer_from_name")->update(["value" => $request->get("mailer_from_name")]);
+            Setting::query()->where("key", "mailer_from_address")->update(["value" => $request->get("mailer_from_address")]);
+            Setting::query()->where("key", "mailer_driver")->update(["value" => $request->get("mailer_driver")]);
 
             return response()->json([
                 "status" => true,

@@ -124,7 +124,7 @@ class DocumentCotroller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DocumentRequest $request, string $id)
     {
         $user = auth()->guard("admin-api")->user();
 
