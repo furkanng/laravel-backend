@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SocialMediaController;
 use App\Http\Controllers\Front\AuthController as FrontAuth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\UserController;
+use \App\Http\Controllers\Admin\BulletinController;
 //ADMIN API KODLARI
 Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::post('/login', [AuthController::class, "login"]);
@@ -17,6 +18,8 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/references', ReferenceCotroller::class);
     Route::resource('/documents', ReferenceCotroller::class);
     Route::resource('/socialmedia-setting', SocialMediaController::class);
+    Route::resource('/bulletin',BulletinController::class);
+
 });
 
 //FRONT API KODLARI

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bulletin', function (Blueprint $table) {
             $table->id();
-            $table->string('mail')->nullable();
+            $table->string('email')->nullable();
             $table->timestamp('date')->nullable();
             $table->string('ip')->nullable();
         });
