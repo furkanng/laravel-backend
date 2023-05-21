@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ApiController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DocumentCotroller;
@@ -26,20 +27,29 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/general-setting', SettingController::class);
     Route::resource('/mail-setting', MailController::class);
     Route::resource('/contact-setting', ContactController::class);
-    Route::resource('/bulletin',BulletinController::class);
+    Route::resource('/bulletin', BulletinController::class);
+    Route::resource('/api-setting', ApiController::class);
 });
 
 //FRONT API KODLARI
+
+
+//MIDDLEWARE OLMAYAN API KODLARI ADMIN
+Route::post("/admin/forgot-password", [AdminController::class, "forgotPassword"]);
+Route::post("/admin/reset-password", [AdminController::class, "resetPassword"]);
+
+//MIDDLEWARE OLMAYAN API KODLARI FRONT E-TICARET
+Route::post('/forgot-password', [UserController::class, 'forgotPassword']);
+Route::post('/reset-password', [UserController::class, 'resetPassword']);
+
+//FRONT E-TICARET API KODLARI
 Route::middleware("api")->group(function () {
     Route::post('/register', [FrontAuth::class, "register"]);
     Route::post('/login', [FrontAuth::class, 'login']);
     Route::post('/logout', [FrontAuth::class, 'logout']);
 });
 
-//MIDDLEWARE OLMAYAN API KODLARI ADMIN
-Route::post("/admin/forgot-password", [AdminController::class, "forgotPassword"]);
-Route::post("/admin/reset-password", [AdminController::class, "resetPassword"]);
+//ADMIN E-TICARET API KODLARI
+Route::prefix('admin/ecommerce')->middleware("admin-api")->group(function () {
 
-//MIDDLEWARE OLMAYAN API KODLARI FRONT
-Route::post('/forgot-password', [UserController::class, 'forgotPassword']);
-Route::post('/reset-password', [UserController::class, 'resetPassword']);
+});
