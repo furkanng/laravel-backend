@@ -11,6 +11,7 @@ class SubCategory extends Model
 
     protected $primaryKey = "id";
     protected $table = "subcategories";
+    public $timestamps = false;
 
     protected $fillable = [
         "id",

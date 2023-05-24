@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bulletin', function (Blueprint $table) {
-            $table->id();
+            $table->increments("id");
             $table->string('email')->nullable();
             $table->timestamp('date')->nullable();
             $table->string('ip')->nullable();

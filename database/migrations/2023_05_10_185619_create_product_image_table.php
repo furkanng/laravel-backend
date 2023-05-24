@@ -4,17 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('product_image', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId("product_id")->references("id")->on("products");
-            $table->json("images");
+            $table->increments("id");
+            $table->integer("product_id");
+            $table->string("images");
+            $table->foreign("product_id")->references("id")->on("products");
         });
     }
 

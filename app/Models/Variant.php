@@ -11,10 +11,12 @@ class Variant extends Model
 
     protected $primaryKey = "id";
     protected $table = "variants";
+    public $timestamps = false;
 
     protected $fillable = [
         "id",
         "name",
+        "feature_id",
         "status"
     ];
 }

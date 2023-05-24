@@ -11,17 +11,12 @@ class Feature extends Model
 
     protected $primaryKey = "id";
     protected $table = "features";
+    public $timestamps = false;
 
     protected $fillable = [
         "id",
         "name",
         "status",
-        "variant_id"
     ];
-
-    public function variant()
-    {
-        return $this->belongsTo(Variant::class);
-    }
 
 }

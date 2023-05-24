@@ -69,40 +69,34 @@ class SettingController extends Controller
             $favicon = $request->file("site_favicon");
             $logo = $request->file("site_logo");
 
-            if (FtpControl::FtpLicanceControl()) {
-                if (isset($footer_logo)) {
-                    $filename = "FooterLogo" . "." . $footer_logo->getClientOriginalExtension();
-                    $footer_logo->storeAs("/setting", $filename);
-                    Setting::query()->where("key", "site_footer_logo")->update(["value" => $filename]);
-                }
+            Setting::query()->where("key", "site_description")->update(["value" => $description]);
+            Setting::query()->where("key", "site_keywords")->update(["value" => $keyword]);
+            Setting::query()->where("key", "site_title")->update(["value" => $title]);
 
-                if (isset($favicon)) {
-                    $filename = "Favicon" . "." . $favicon->getClientOriginalExtension();
-                    $favicon->storeAs("/setting", $filename);
-                    Setting::query()->where("key", "site_favicon")->update(["value" => $filename]);
-                }
 
-                if (isset($logo)) {
-                    $filename = "Logo" . "." . $logo->getClientOriginalExtension();
-                    $logo->storeAs("/setting", $filename);
-                    Setting::query()->where("key", "site_logo")->update(["value" => $filename]);
-                }
-
-                Setting::query()->where("key", "site_description")->update(["value" => $description]);
-                Setting::query()->where("key", "site_keywords")->update(["value" => $keyword]);
-                Setting::query()->where("key", "site_title")->update(["value" => $title]);
-
-                return response()->json([
-                    "status" => true,
-                    "message" => "success"
-                ]);
-
-            } else {
-                return response()->json([
-                    "status" => false,
-                    "message" => "Make sure you have entered your ftp settings and are correct."
-                ]);
+            if (isset($footer_logo) && FtpControl::FtpLicanceControl()) {
+                $filename = "FooterLogo" . "." . $footer_logo->getClientOriginalExtension();
+                $footer_logo->storeAs("/setting", $filename);
+                Setting::query()->where("key", "site_footer_logo")->update(["value" => $filename]);
             }
+
+            if (isset($favicon) && FtpControl::FtpLicanceControl()) {
+                $filename = "Favicon" . "." . $favicon->getClientOriginalExtension();
+                $favicon->storeAs("/setting", $filename);
+                Setting::query()->where("key", "site_favicon")->update(["value" => $filename]);
+            }
+
+            if (isset($logo) && FtpControl::FtpLicanceControl()) {
+                $filename = "Logo" . "." . $logo->getClientOriginalExtension();
+                $logo->storeAs("/setting", $filename);
+                Setting::query()->where("key", "site_logo")->update(["value" => $filename]);
+            }
+
+            return response()->json([
+                "status" => true,
+                "message" => "success"
+            ]);
+
 
         } else {
             return response()->json([
