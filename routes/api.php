@@ -1,14 +1,20 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ApiController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DocumentCotroller;
+use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReferenceCotroller;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialMediaController;
+use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\VariantController;
 use App\Http\Controllers\Front\AuthController as FrontAuth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\UserController;
@@ -29,6 +35,13 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/contact-setting', ContactController::class);
     Route::resource('/bulletin',BulletinController::class);
     Route::resource('/sss',SssController::class);
+
+    Route::resource('/api-setting', ApiController::class);
+    Route::resource('/category', CategoryController::class);
+    Route::resource('/subcategory', SubCategoryController::class);
+    Route::resource('/product-variant', VariantController::class);
+    Route::resource('/product-features', FeatureController::class);
+    Route::resource('/products', ProductController::class);
 });
 
 //FRONT API KODLARI
