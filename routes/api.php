@@ -13,6 +13,7 @@ use App\Http\Controllers\Front\AuthController as FrontAuth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\UserController;
 use \App\Http\Controllers\Admin\BulletinController;
+use \App\Http\Controllers\Admin\SssController;
 
 //ADMIN API KODLARI
 Route::prefix('admin')->middleware("admin-api")->group(function () {
@@ -27,6 +28,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/mail-setting', MailController::class);
     Route::resource('/contact-setting', ContactController::class);
     Route::resource('/bulletin',BulletinController::class);
+    Route::resource('/sss',SssController::class);
 });
 
 //FRONT API KODLARI
