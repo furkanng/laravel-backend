@@ -11,9 +11,11 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('variants', function (Blueprint $table) {
-            $table->id();
+            $table->increments("id");
             $table->string("name")->nullable();
+            $table->integer("feature_id");
             $table->boolean("status")->default(1);
+            $table->foreign("feature_id")->references("id")->on("features");
         });
     }
 

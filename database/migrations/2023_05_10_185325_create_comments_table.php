@@ -11,12 +11,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId("user_id")->references("id")->on("users");
-            $table->foreignId("product_id")->references("id")->on("products");
+            $table->increments("id");
+            $table->integer("user_id");
+            $table->integer("product_id");
             $table->text("comment")->nullable();
             $table->timestamps();
-
+            $table->foreign("user_id")->references("id")->on("users");
+            $table->foreign("product_id")->references("id")->on("products");
         });
     }
 

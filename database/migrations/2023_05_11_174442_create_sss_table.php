@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sss', function (Blueprint $table) {
-            $table->id();
+            $table->increments("id");
             $table->string('question')->nullable();
             $table->string('answer')->nullable();
             $table->boolean('status')->default(true);

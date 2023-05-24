@@ -11,9 +11,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('features', function (Blueprint $table) {
-            $table->id();
+            $table->increments("id");
             $table->string("name")->nullable();
-            $table->json("variant_id")->nullable();
             $table->boolean("status")->default(1);
         });
     }

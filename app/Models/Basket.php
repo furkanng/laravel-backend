@@ -4,20 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Basket extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $primaryKey = "id";
     protected $table = "basket";
 
-    protected $fillable = [
-        "user_id",
-        "product_id",
-        "piece",
-        "price"
-    ];
+    protected $guarded = [];
 
     public function user()
     {

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('references', function (Blueprint $table) {
-            $table->id();
+            $table->increments("id");
             $table->string('title')->nullable();
             $table->string('image')->nullable();
             $table->boolean('status')->default(true);

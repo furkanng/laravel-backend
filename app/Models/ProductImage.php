@@ -11,6 +11,7 @@ class ProductImage extends Model
 
     protected $primaryKey = "id";
     protected $table = "product_image";
+    public $timestamps = false;
 
 
     protected $fillable = [
@@ -18,4 +19,9 @@ class ProductImage extends Model
         "product_id",
         "images"
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

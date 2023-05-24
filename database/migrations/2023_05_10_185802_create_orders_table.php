@@ -11,10 +11,11 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->increments("id");
+            $table->integer("user_id");
             $table->dateTime("date");
-            $table->foreignId("user_id")->references("id")->on("users");
             $table->double("total_price");
+            $table->foreign("user_id")->references("id")->on("users");
         });
     }
 

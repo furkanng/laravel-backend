@@ -45,6 +45,13 @@ class SettingSeeder extends Seeder
                 ['title' => 'Set Contact Fax', 'key' => 'contact_fax', 'value' => '', "type" => 'text', "group_key" => 'contact_settings'],
                 ['title' => 'Set Contact Email', 'key' => 'contact_email', 'value' => '', "type" => 'text', "group_key" => 'contact_settings'],
                 ['title' => 'Set Contact Address', 'key' => 'contact_address', 'value' => '', "type" => 'text', "group_key" => 'contact_settings'],
+                ['title' => 'Set Api Whatsapp', 'key' => 'whatsapp_api', 'value' => '', "type" => 'text', "group_key" => 'api_settings'],
+                ['title' => 'Set Api Phone', 'key' => 'phone_api', 'value' => '', "type" => 'text', "group_key" => 'api_settings'],
+                ['title' => 'Set Api Analytics', 'key' => 'analytics_api', 'value' => '', "type" => 'text', "group_key" => 'api_settings'],
+                ['title' => 'Set Api Webmaster Tools', 'key' => 'webmaster_api', 'value' => '', "type" => 'text', "group_key" => 'api_settings'],
+                ['title' => 'Set Api Map', 'key' => 'map_api', 'value' => '', "type" => 'text', "group_key" => 'api_settings'],
+                ['title' => 'Set Api Live Support', 'key' => 'livesupport_api', 'value' => '', "type" => 'text', "group_key" => 'api_settings'],
+                ['title' => 'Set Api Google Rchaptha', 'key' => 'rcaptha_api', 'value' => '', "type" => 'text', "group_key" => 'api_settings'],
             ];
 
         Setting::query()->insert($defaultData);
