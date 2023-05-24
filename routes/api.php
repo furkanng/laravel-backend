@@ -16,10 +16,10 @@ use App\Http\Controllers\Admin\SocialMediaController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\VariantController;
 use App\Http\Controllers\Front\AuthController as FrontAuth;
-use App\Http\Controllers\Front\BasketController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\UserController;
 use \App\Http\Controllers\Admin\BulletinController;
+use \App\Http\Controllers\Admin\SssController;
 
 //ADMIN API KODLARI
 Route::prefix('admin')->middleware("admin-api")->group(function () {
@@ -33,7 +33,9 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/general-setting', SettingController::class);
     Route::resource('/mail-setting', MailController::class);
     Route::resource('/contact-setting', ContactController::class);
-    Route::resource('/bulletin', BulletinController::class);
+    Route::resource('/bulletin',BulletinController::class);
+    Route::resource('/sss',SssController::class);
+
     Route::resource('/api-setting', ApiController::class);
     Route::resource('/category', CategoryController::class);
     Route::resource('/subcategory', SubCategoryController::class);
@@ -42,25 +44,17 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/products', ProductController::class);
 });
 
-//MIDDLEWARE OLMAYAN API KODLARI ADMIN
-Route::post("/admin/forgot-password", [AdminController::class, "forgotPassword"]);
-Route::post("/admin/reset-password", [AdminController::class, "resetPassword"]);
-
 //FRONT API KODLARI
-
-
-//MIDDLEWARE OLMAYAN API KODLARI FRONT E-TICARET
-Route::post('/forgot-password', [UserController::class, 'forgotPassword']);
-Route::post('/reset-password', [UserController::class, 'resetPassword']);
-
-//FRONT E-TICARET API KODLARI
 Route::middleware("api")->group(function () {
     Route::post('/register', [FrontAuth::class, "register"]);
     Route::post('/login', [FrontAuth::class, 'login']);
     Route::post('/logout', [FrontAuth::class, 'logout']);
 });
 
-Route::prefix("/basket")->group(function () {
-    Route::get('/', [BasketController::class, "getBasket"]);
-    Route::post('/add', [BasketController::class, "addBasket"]);
-});
+//MIDDLEWARE OLMAYAN API KODLARI ADMIN
+Route::post("/admin/forgot-password", [AdminController::class, "forgotPassword"]);
+Route::post("/admin/reset-password", [AdminController::class, "resetPassword"]);
+
+//MIDDLEWARE OLMAYAN API KODLARI FRONT
+Route::post('/forgot-password', [UserController::class, 'forgotPassword']);
+Route::post('/reset-password', [UserController::class, 'resetPassword']);
