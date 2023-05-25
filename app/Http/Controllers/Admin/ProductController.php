@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Helper\FtpControl;
 use App\Helper\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Feature;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Variant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -17,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -25,7 +27,54 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $user = auth()->guard("admin-api")->user();
+
+        if ($user) {
+
+            $variants = Variant::with('feature')->get();
+
+            $result = [];
+
+            foreach ($variants as $variant) {
+                $feature = $variant->feature;
+
+                $variantData = [
+                    'variant_id' => $variant->id,
+                    'variant_name' => $variant->name,
+                ];
+
+                if (!isset($result[$feature->id])) {
+                    $result[$feature->id] = [
+                        'feature_id' => $feature->id,
+                        'feature_name' => $feature->name,
+                        'variants' => [],
+                    ];
+                }
+
+                $result[$feature->id]['variants'][] = $variantData;
+            }
+
+            if ($result) {
+                return response()->json([
+                    "status" => true,
+                    "message" => "success",
+                    "data" => $result
+                ]);
+            } else {
+                return response()->json([
+                    "status" => false,
+                    "message" => "error",
+                ], 401);
+            }
+
+
+        } else {
+            return response()->json([
+                "status" => false,
+                "message" => "User not found"
+            ]);
+        }
+
     }
 
     /**
@@ -112,7 +161,56 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        $features = json_decode($product->feature_id);
+
+        foreach ($features as $feature){
+            $data[] = Feature::query()->where("id",$feature)->get();
+        }
+
+
+        $newdata = [];
+        foreach ($data as $key){
+            $newdata["feature"]= $key["name"];
+        }
+
+        dd($newdata);
+
+        $feature = Feature::query()->where("id","");
+
+        dd($product);
+
+        $variants = Variant::with('feature')->get();
+
+        $result = [];
+
+        foreach ($variants as $variant) {
+            $feature = $variant->feature;
+
+            $variantData = [
+                'variant_id' => $variant->id,
+                'variant_name' => $variant->name,
+            ];
+
+            if (!isset($result[$feature->id])) {
+                $result[$feature->id] = [
+                    'feature_id' => $feature->id,
+                    'feature_name' => $feature->name,
+                    'variants' => [],
+                ];
+            }
+
+            $result[$feature->id]['variants'][] = $variantData;
+        }
+
+
+        return response()->json([
+            "product" => $product,
+            "ozellikler" => $result
+        ]);
+
+
     }
 
     /**

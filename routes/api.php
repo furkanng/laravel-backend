@@ -33,9 +33,8 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/general-setting', SettingController::class);
     Route::resource('/mail-setting', MailController::class);
     Route::resource('/contact-setting', ContactController::class);
-    Route::resource('/bulletin',BulletinController::class);
-    Route::resource('/sss',SssController::class);
-
+    Route::resource('/bulletin', BulletinController::class);
+    Route::resource('/sss', SssController::class);
     Route::resource('/api-setting', ApiController::class);
     Route::resource('/category', CategoryController::class);
     Route::resource('/subcategory', SubCategoryController::class);

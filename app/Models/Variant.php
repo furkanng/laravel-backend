@@ -19,4 +19,9 @@ class Variant extends Model
         "feature_id",
         "status"
     ];
+
+    public function feature()
+    {
+        return $this->belongsTo(Feature::class, 'feature_id');
+    }
 }
