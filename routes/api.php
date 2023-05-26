@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ReferenceCotroller;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialMediaController;
@@ -41,6 +42,8 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/product-variant', VariantController::class);
     Route::resource('/product-features', FeatureController::class);
     Route::resource('/products', ProductController::class);
+    Route::post('/image-remove', [ProductImageController::class, "removeImage"]);
+    Route::post('/image-remove-cover', [ProductImageController::class, "removeCoverImage"]);
 });
 
 //FRONT API KODLARI

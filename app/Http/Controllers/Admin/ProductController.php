@@ -161,64 +161,168 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $product = Product::findOrFail($id);
+        $user = auth()->guard("admin-api")->user();
 
-        $features = json_decode($product->feature_id);
+        if ($user) {
+            $product = Product::findOrFail($id);
 
-        foreach ($features as $feature){
-            $data[] = Feature::query()->where("id",$feature)->get();
-        }
+            $productImages = ProductImage::query()->where("product_id", $id)->get();
 
+            $images = [];
 
-        $newdata = [];
-        foreach ($data as $key){
-            $newdata["feature"]= $key["name"];
-        }
-
-        dd($newdata);
-
-        $feature = Feature::query()->where("id","");
-
-        dd($product);
-
-        $variants = Variant::with('feature')->get();
-
-        $result = [];
-
-        foreach ($variants as $variant) {
-            $feature = $variant->feature;
-
-            $variantData = [
-                'variant_id' => $variant->id,
-                'variant_name' => $variant->name,
-            ];
-
-            if (!isset($result[$feature->id])) {
-                $result[$feature->id] = [
-                    'feature_id' => $feature->id,
-                    'feature_name' => $feature->name,
-                    'variants' => [],
-                ];
+            foreach ($productImages as $key) {
+                $images[$key["id"]] = $key->images;
             }
 
-            $result[$feature->id]['variants'][] = $variantData;
+            $product->images = $images;
+
+            $variants = Variant::with('feature')->get();
+
+            $result = [];
+
+            foreach ($variants as $variant) {
+                $feature = $variant->feature;
+
+                $variantData = [
+                    'variant_id' => $variant->id,
+                    'variant_name' => $variant->name,
+                ];
+
+                if (!isset($result[$feature->id])) {
+                    $result[$feature->id] = [
+                        'feature_id' => $feature->id,
+                        'feature_name' => $feature->name,
+                        'variants' => [],
+                    ];
+                }
+
+                $result[$feature->id]['variants'][] = $variantData;
+            }
+
+            return response()->json([
+                "status" => true,
+                "product" => $product,
+                "features" => $result,
+            ]);
+
+        } else {
+            return response()->json([
+                "status" => false,
+                "message" => "User not found"
+            ]);
         }
-
-
-        return response()->json([
-            "product" => $product,
-            "ozellikler" => $result
-        ]);
-
 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, $id)
+    {//TODO çalışıyor gibi ama çalışmıyor da olabilir kontrol etmek lazım  x-www-form-urlencoded ile
+        $user = auth()->guard("admin-api")->user();
+
+        if ($user) {
+            $product = Product::findOrFail($id);
+
+            $title = $request->get("title");
+            $price = $request->get("price");
+            $stock = $request->get("stock");
+            $code = $request->get("code");
+            $description = $request->get("description");
+            $new_product = $request->get("new_product");
+            $spot_text = $request->get("spot_text");
+            $status = $request->get("status");
+            $category_id = $request->get("category_id");
+            $subcategory_id = $request->get("subcategory_id");
+            $feature_id = $request->get("feature_id");
+            $variant_id = $request->get("variant_id");
+            $cover_image = $request->file("cover_image");
+
+            if (isset($cover_image) && FtpControl::FtpLicanceControl()) {
+                $filename = $product->code . "." . $cover_image->getClientOriginalExtension();
+                $cover_image->storeAs("/product", $filename);
+                $product->cover_image = $filename;
+            }
+
+            if (isset($title)) {
+                $product->title = $title;
+            }
+
+            if (isset($price)) {
+                $product->price = $price;
+            }
+
+            if (isset($stock)) {
+                $product->stock = $stock;
+            }
+
+            if (isset($code)) {
+                $product->code = $code;
+            }
+
+            if (isset($description)) {
+                $product->description = $description;
+            }
+
+            if (isset($new_product)) {
+                $product->new_product = $new_product;
+            }
+
+            if (isset($spot_text)) {
+                $product->spot_text = $spot_text;
+            }
+
+            if (isset($status)) {
+                $product->status = $status;
+            }
+
+            if (isset($category_id)) {
+                $product->category_id = $category_id;
+            }
+
+            if (isset($subcategory_id)) {
+                $product->subcategory_id = $subcategory_id;
+            }
+
+            if (isset($feature_id)) {
+                $product->feature_id = $feature_id;
+            }
+
+            if (isset($variant_id)) {
+                $product->variant_id = $variant_id;
+            }
+
+            $result = $product->save();
+
+            if ($request->hasfile('images')) {
+                foreach ($request->file('images') as $file) {
+                    $image = new ProductImage();
+                    $filename = $product->code . "-" . rand(1, 99) . "." . $file->getClientOriginalExtension();
+                    $file->storeAs("/product", $filename);
+                    $image->images = $filename;
+                    $image->product_id = $product->id;
+                    $image->save();
+                }
+            }
+
+            if ($result) {
+                return response()->json([
+                    "status" => true,
+                    "message" => "success",
+                ]);
+            } else {
+                return response()->json([
+                    "status" => false,
+                    "message" => "error",
+                ], 401);
+            }
+
+        } else {
+            return response()->json([
+                "status" => false,
+                "message" => "User not found"
+            ]);
+        }
     }
 
     /**
@@ -226,6 +330,31 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = auth()->guard("admin-api")->user();
+
+        if ($user) {
+            $page = Product::findOrFail($id);
+
+            //Todo productImageden resim de sildirmen lazım unutma
+            $result = $page->delete();
+
+            if ($result) {
+                return response()->json([
+                    "status" => true,
+                    "message" => "success",
+                ]);
+            } else {
+                return response()->json([
+                    "status" => false,
+                    "message" => "error",
+                ], 401);
+            }
+
+        } else {
+            return response()->json([
+                "status" => false,
+                "message" => "User not found"
+            ]);
+        }
     }
 }
