@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ReferenceCotroller;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialMediaController;
@@ -37,15 +38,16 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/general-setting', SettingController::class);
     Route::resource('/mail-setting', MailController::class);
     Route::resource('/contact-setting', ContactController::class);
-    Route::resource('/bulletin',BulletinController::class);
-    Route::resource('/sss',SssController::class);
-
+    Route::resource('/bulletin', BulletinController::class);
+    Route::resource('/sss', SssController::class);
     Route::resource('/api-setting', ApiController::class);
     Route::resource('/category', CategoryController::class);
     Route::resource('/subcategory', SubCategoryController::class);
     Route::resource('/product-variant', VariantController::class);
     Route::resource('/product-features', FeatureController::class);
     Route::resource('/products', ProductController::class);
+    Route::post('/image-remove', [ProductImageController::class, "removeImage"]);
+    Route::post('/image-remove-cover', [ProductImageController::class, "removeCoverImage"]);
 });
 
 //FRONT WITH AUTH API KODLARI
