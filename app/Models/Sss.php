@@ -12,7 +12,7 @@ class Sss extends Model
     protected $primaryKey = "id";
 
     protected $table = "sss";
-
+    public $timestamps=false;
     protected $fillable = [
         "id",
         "question",
