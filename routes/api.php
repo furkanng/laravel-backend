@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\UserController;
 use \App\Http\Controllers\Admin\BulletinController;
 use \App\Http\Controllers\Admin\SssController;
+use \App\Http\Controllers\Front\CategoryController as FrontCategory;
+use \App\Http\Controllers\Front\ProductController as FrontProduct;
+use \App\Http\Controllers\Front\SssController as FrontSss;
+
 
 //ADMIN API KODLARI
 Route::prefix('admin')->middleware("admin-api")->group(function () {
@@ -44,12 +48,31 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/products', ProductController::class);
 });
 
-//FRONT API KODLARI
+//FRONT WITH AUTH API KODLARI
 Route::middleware("api")->group(function () {
     Route::post('/register', [FrontAuth::class, "register"]);
     Route::post('/login', [FrontAuth::class, 'login']);
     Route::post('/logout', [FrontAuth::class, 'logout']);
+
 });
+// FRONT NO AUTH API KODLARI
+
+Route::controller(FrontCategory::class)->group(function (){
+    Route::get('/category','getCategory');
+    Route::get('/sub-category','getSubCategory');
+    Route::get('/sub-category/{catId}','getSubCatyWithCatId');
+
+});
+
+Route::controller(FrontProduct::class)->group(function (){
+    Route::get('/product','getProduct');
+    Route::get('/product/category/{catId}','getProductCatId');
+    Route::get('/product/sub-category/{subCatId}','getProductSubCatId');
+
+});
+
+Route::get('/sss',[FrontSss::class,'getSss']);
+
 
 //MIDDLEWARE OLMAYAN API KODLARI ADMIN
 Route::post("/admin/forgot-password", [AdminController::class, "forgotPassword"]);
