@@ -25,6 +25,7 @@ use \App\Http\Controllers\Admin\SssController;
 use \App\Http\Controllers\Front\CategoryController as FrontCategory;
 use \App\Http\Controllers\Front\ProductController as FrontProduct;
 use \App\Http\Controllers\Front\SssController as FrontSss;
+use \App\Http\Controllers\Front\PagesController as FrontPages;
 
 
 //ADMIN API KODLARI
@@ -75,6 +76,7 @@ Route::controller(FrontProduct::class)->group(function () {
 });
 
 Route::get('/sss', [FrontSss::class, 'getSss']);
+Route::get('/pages', [FrontPages::class, 'getPages']);
 
 
 //MIDDLEWARE OLMAYAN API KODLARI ADMIN
