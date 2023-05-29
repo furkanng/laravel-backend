@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->integer("product_id")->nullable();
             $table->json("variant_id")->nullable();
             $table->integer("piece");
-            $table->decimal("price", 5, 3);
+            $table->decimal("price", 7, 2);
             $table->timestamps();
             $table->foreign("product_id")->references("id")->on("products");
             $table->foreign("user_id")->references("id")->on("users");

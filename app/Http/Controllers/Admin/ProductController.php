@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Helper\FtpControl;
 use App\Helper\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Feature;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Variant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -19,6 +21,24 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $user = auth()->guard("admin-api")->user();
+
+        if ($user) {
+
+            $product = Product::query()->orderBy("id", "DESC")->get();
+
+            return response()->json([
+                "status" => true,
+                "message" => "success",
+                "data" => $product,
+            ]);
+
+        } else {
+            return response()->json([
+                "status" => false,
+                "message" => "User not found"
+            ]);
+        }
 
     }
 
@@ -328,15 +348,28 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
-            $page = Product::findOrFail($id);
+            $product = Product::findOrFail($id);
 
-            //Todo productImageden resim de sildirmen lazım unutma
-            $result = $page->delete();
+            if ($product->cover_image > 0) {
+                Storage::disk("ftp")->delete("product/" . $product->cover_image);
+            }
+
+            $productImages = ProductImage::query()->where("product_id", $product->id)->get();
+
+            if ($productImages) {
+                foreach ($productImages as $image) {
+                    Storage::disk("ftp")->delete("product/" . $image->images);
+                    $image->delete();
+                }
+
+            }
+
+            $result = $product->delete();
 
             if ($result) {
                 return response()->json([
