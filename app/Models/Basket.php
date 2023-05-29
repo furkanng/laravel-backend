@@ -8,12 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Basket extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $primaryKey = "id";
     protected $table = "basket";
+    public $timestamps = true;
 
-    protected $guarded = [];
+    protected $fillable = [
+        "id",
+        "user_id",
+        "product_id",
+        "piece",
+        "price",
+        "variant_id"
+    ];
 
     public function user()
     {

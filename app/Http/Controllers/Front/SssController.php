@@ -11,7 +11,6 @@ class SssController extends Controller
     public function getSss(){
         $data = Sss::query()->where("status",1)->orderBy('id','DESC')->get();
 
-       //dd($sss_data);
         if($data->isNotEmpty()){
             return response()->json([
                 "status"=>true,

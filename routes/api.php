@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\SocialMediaController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\VariantController;
 use App\Http\Controllers\Front\AuthController as FrontAuth;
+use App\Http\Controllers\Front\BasketController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\UserController;
 use \App\Http\Controllers\Admin\BulletinController;
@@ -55,25 +56,25 @@ Route::middleware("api")->group(function () {
     Route::post('/register', [FrontAuth::class, "register"]);
     Route::post('/login', [FrontAuth::class, 'login']);
     Route::post('/logout', [FrontAuth::class, 'logout']);
-
+    Route::get("/basket", [BasketController::class,"getBasket"]);
+    Route::get("/add-basket", [BasketController::class,"addBasket"]);
+    Route::get("/remove-basket", [BasketController::class,"removeBasket"]);
 });
 // FRONT NO AUTH API KODLARI
 
-Route::controller(FrontCategory::class)->group(function (){
-    Route::get('/category','getCategory');
-    Route::get('/sub-category','getSubCategory');
-    Route::get('/sub-category/{catId}','getSubCatyWithCatId');
-
+Route::controller(FrontCategory::class)->group(function () {
+    Route::get('/category', 'getCategory');
+    Route::get('/sub-category', 'getSubCategory');
+    Route::get('/sub-category/{catId}', 'getSubCatyWithCatId');
 });
 
-Route::controller(FrontProduct::class)->group(function (){
-    Route::get('/product','getProduct');
-    Route::get('/product/category/{catId}','getProductCatId');
-    Route::get('/product/sub-category/{subCatId}','getProductSubCatId');
-
+Route::controller(FrontProduct::class)->group(function () {
+    Route::get('/product', 'getProduct');
+    Route::get('/product/category/{catId}', 'getProductCatId');
+    Route::get('/product/sub-category/{subCatId}', 'getProductSubCatId');
 });
 
-Route::get('/sss',[FrontSss::class,'getSss']);
+Route::get('/sss', [FrontSss::class, 'getSss']);
 
 
 //MIDDLEWARE OLMAYAN API KODLARI ADMIN
