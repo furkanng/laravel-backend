@@ -17,7 +17,12 @@ return new class extends Migration
             $table->double('price')->nullable();
             $table->text('description')->nullable();
             $table->string('period')->nullable();
+            $table->string("seo_link")->nullable();
+            $table->string("seo_title")->nullable();
+            $table->string("seo_description")->nullable();
+            $table->string("seo_keywords")->nullable();
             $table->boolean('status')->default(true);
+            $table->timestamps();
         });
     }
 

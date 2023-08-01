@@ -13,10 +13,18 @@ return new class extends Migration {
         Schema::create('order_detail', function (Blueprint $table) {
             $table->increments("id");
             $table->integer("order_id");
-            $table->integer("product_id");
-            $table->dateTime("date");
+            $table->integer("product_id")->nullable();
+            $table->integer("sub_product_id")->nullable();
+            $table->string("product_name")->nullable();
+            $table->string("sub_product_name")->nullable();
+            $table->json("variants")->nullable();
+            $table->double("price")->nullable();
+            $table->string("unit")->nullable();
+            $table->string("piece")->nullable();
+            $table->timestamps();
             $table->foreign("order_id")->references("id")->on("orders");
             $table->foreign("product_id")->references("id")->on("products");
+            $table->foreign("sub_product_id")->references("id")->on("sub_products");
         });
     }
 

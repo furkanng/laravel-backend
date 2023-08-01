@@ -40,17 +40,6 @@ class AppServiceProvider extends ServiceProvider
 
         \config()->set("mail", $mail);
 
-        $ftp = [
-            "driver" => FtpControl::getFtpSettings()["FILESYSTEM_DISK"],
-            "host" => FtpControl::getFtpSettings()["FTP_HOST"],
-            "port" => (int)FtpControl::getFtpSettings()["FTP_PORT"],
-            "root" => FtpControl::getFtpSettings()["FTP_ROOT"],
-            "username" => FtpControl::getFtpSettings()["FTP_USERNAME"],
-            "password" => FtpControl::getFtpSettings()["FTP_PASSWORD"],
-            "options" => FtpControl::getFtpSettings()["FTP_OPTIONS"],
-        ];
-
-        \config()->set("filesystems.disks.ftp", $ftp);
 
 
     }

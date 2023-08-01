@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('image')->nullable();
             $table->string("document")->nullable();
             $table->boolean('status')->default(true);
+            $table->timestamps();
         });
     }
 

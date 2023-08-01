@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('bulletin', function (Blueprint $table) {
             $table->increments("id");
             $table->string('email')->nullable();
-            $table->timestamp('date')->nullable();
             $table->string('ip')->nullable();
+            $table->timestamps();
         });
     }
 

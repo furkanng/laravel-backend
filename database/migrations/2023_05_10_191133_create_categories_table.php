@@ -14,7 +14,15 @@ return new class extends Migration {
             $table->increments("id");
             $table->string("name");
             $table->string("image")->nullable();
+            $table->string("seo_link")->nullable();
+            $table->string("seo_title")->nullable();
+            $table->string("seo_description")->nullable();
+            $table->string("seo_keywords")->nullable();
+            $table->boolean("top_menu")->nullable();
+            $table->boolean("showcase")->nullable();
+            $table->integer("row")->nullable();
             $table->boolean("status")->default(1);
+            $table->timestamps();
         });
     }
 

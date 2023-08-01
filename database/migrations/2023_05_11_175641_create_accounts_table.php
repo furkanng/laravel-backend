@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('branch_name')->nullable();
             $table->string('iban')->nullable();
             $table->boolean('status')->default(true);
+            $table->timestamps();
         });
     }
 

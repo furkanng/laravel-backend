@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->string("company_name")->nullable();
             $table->boolean("status")->default(true);
             $table->foreign("user_id")->references("id")->on("users");
+            $table->timestamps();
         });
     }
 

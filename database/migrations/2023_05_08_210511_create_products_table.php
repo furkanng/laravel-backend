@@ -13,23 +13,27 @@ return new class extends Migration {
         Schema::create('products', function (Blueprint $table) {
             $table->increments("id");
             $table->string("title")->nullable();
+            $table->integer("category_id")->nullable();
+            $table->integer("subcategory_id")->nullable();
+            $table->integer("sub_subcategory_id")->nullable();
+            $table->integer("brand_id")->nullable();
             $table->double("price")->nullable();
             $table->integer("stock")->nullable();
             $table->string("code")->nullable();
-            $table->dateTime("date")->nullable();
+            $table->string("unit")->nullable();
+            $table->json("tags")->nullable();
             $table->text("description")->nullable();
             $table->string("cover_image")->nullable();
             $table->boolean("new_product")->nullable();
             $table->string("spot_text")->nullable();
-            $table->integer("category_id")->nullable();
-            $table->integer("subcategory_id")->nullable();
-            $table->json("feature_id")->nullable();
-            $table->json("variant_id")->nullable();
             $table->boolean("status")->default(true);
+            $table->timestamps();
             $table->foreign("category_id")->references("id")->on("categories");
-            $table->foreign("subcategory_id")->references("id")->on("subcategories");
+            $table->foreign("subcategory_id")->references("id")->on("sub_categories");
+            $table->foreign("sub_subcategory_id")->references("id")->on("sub_sub_categories");
             $table->foreign("feature_id")->references("id")->on("features");
             $table->foreign("variant_id")->references("id")->on("variants");
+            $table->foreign("brand_id")->references("id")->on("brands");
         });
     }
 

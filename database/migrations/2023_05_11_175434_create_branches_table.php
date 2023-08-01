@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('district')->nullable();
             $table->boolean('status')->default(true);
-
+            $table->timestamps();
         });
     }
 
