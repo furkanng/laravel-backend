@@ -8,6 +8,7 @@ class MailControl
 {
     public static function getMailerSettings()
     {
+
         $settingsConfigArray = Setting::query()->where("group_key", "email_settings")->get();
         $settingsConfig = [];
 
@@ -25,6 +26,8 @@ class MailControl
             'MAIL_ENCRYPTION' => $settingsConfig['mailer_encryption'],
             'MAIL_DRIVER' => $settingsConfig['mailer_driver'],
         ];
+
+
     }
 
     public static function MailLicanceControl()

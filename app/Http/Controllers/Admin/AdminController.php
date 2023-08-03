@@ -61,7 +61,6 @@ class AdminController extends Controller
                     "message" => "Make sure you have entered your mail settings and are correct."
                 ]);
             }
-
         } else {
             return response()->json([
                 "status" => false,
@@ -95,7 +94,6 @@ class AdminController extends Controller
                     "message" => "Validation error",
                 ], 401);
             }
-
 
         } else {
             return response()->json([

@@ -18,19 +18,20 @@ class AuthController extends Controller
 
     public function register(AdminRegisterRequest $request)
     {
-        $user = new Admin();
-        $user->name = $request->name;
-        $user->surname = $request->surname;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+        $model = new Admin();
 
-        $result = $user->save();
+        $model->name = $request->name;
+        $model->surname = $request->surname;
+        $model->email = $request->email;
+        $model->password = Hash::make($request->password);
+
+        $result = $model->save();
 
         if ($result) {
             return response()->json([
                 "status" => true,
                 "message" => "User Registered Successfully",
-                "data" => $user,
+                "data" => $model,
             ]);
         } else {
             return response()->json([
@@ -68,7 +69,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-        response()->json([
+        return response()->json([
             "status" => true,
             "message" => "User successfully logout"
         ]);

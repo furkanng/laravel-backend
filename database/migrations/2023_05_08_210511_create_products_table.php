@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->integer("subcategory_id")->nullable();
             $table->integer("sub_subcategory_id")->nullable();
             $table->integer("brand_id")->nullable();
+            $table->integer("variant_category_id")->nullable();
+            $table->integer("variant_id")->nullable();
             $table->double("price")->nullable();
             $table->integer("stock")->nullable();
             $table->string("code")->nullable();
@@ -31,7 +33,7 @@ return new class extends Migration {
             $table->foreign("category_id")->references("id")->on("categories");
             $table->foreign("subcategory_id")->references("id")->on("sub_categories");
             $table->foreign("sub_subcategory_id")->references("id")->on("sub_sub_categories");
-            $table->foreign("feature_id")->references("id")->on("features");
+            $table->foreign("variant_category_id")->references("id")->on("variant_categories");
             $table->foreign("variant_id")->references("id")->on("variants");
             $table->foreign("brand_id")->references("id")->on("brands");
         });

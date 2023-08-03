@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Setting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class SettingSeeder extends Seeder
 {
@@ -13,6 +14,8 @@ class SettingSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table("settings")->delete();
+      
         $defaultData =
             [
                 ['title' => 'Set Mailer Title', 'key' => 'mailer_from_name', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],

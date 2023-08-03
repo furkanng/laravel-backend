@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DocumentCotroller;
-use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\ProductController;
@@ -46,7 +45,6 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/category', CategoryController::class);
     Route::resource('/subcategory', SubCategoryController::class);
     Route::resource('/product-variant', VariantController::class);
-    Route::resource('/product-features', FeatureController::class);
     Route::resource('/products', ProductController::class);
     Route::post('/image-remove', [ProductImageController::class, "removeImage"]);
     Route::post('/image-remove-cover', [ProductImageController::class, "removeCoverImage"]);
@@ -57,9 +55,9 @@ Route::middleware("api")->group(function () {
     Route::post('/register', [FrontAuth::class, "register"]);
     Route::post('/login', [FrontAuth::class, 'login']);
     Route::post('/logout', [FrontAuth::class, 'logout']);
-    Route::get("/basket", [BasketController::class,"getBasket"]);
-    Route::get("/add-basket", [BasketController::class,"addBasket"]);
-    Route::get("/remove-basket", [BasketController::class,"removeBasket"]);
+    Route::get("/basket", [BasketController::class, "getBasket"]);
+    Route::get("/add-basket", [BasketController::class, "addBasket"]);
+    Route::get("/remove-basket", [BasketController::class, "removeBasket"]);
 });
 // FRONT NO AUTH API KODLARI
 

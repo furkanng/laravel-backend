@@ -12,11 +12,16 @@ class Bulletin extends Model
     protected $primaryKey = "id";
     protected $table = "bulletin";
 
-    public $timestamps = false;
-    protected $fillable = [
-        "id",
-        "email",
-        "date",
-        "ip",
-    ];
+    protected $fillable = ["email"];
+
+    public static function booted()
+    {
+        static::creating(function ($model) {
+            $model->ip = request()->ip();
+        });
+
+        static::updating(function ($model) {
+            $model->ip = request()->ip();
+        });
+    }
 }

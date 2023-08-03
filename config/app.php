@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\ResponseServiceProvider;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -169,6 +170,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        ResponseServiceProvider::class,
     ])->toArray(),
 
     /*

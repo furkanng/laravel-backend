@@ -12,29 +12,27 @@ use Illuminate\Support\Facades\Storage;
 
 class PagesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = auth()->guard("admin-api")->user();
 
-        if ($user) {
-            //Son veriye göre sırala
-            $data = Page::query()->orderBy("id", "DESC")->get();
+        //Son veriye göre sırala
+        $data = Page::query()->orderBy("id", "DESC")->get();
 
-            return response()->json([
-                "status" => true,
-                "message" => "success",
-                "data" => $data
-            ]);
+        return response()->json([
+            "status" => true,
+            "message" => "success",
+            "data" => $data
+        ]);
 
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "User not found"
-            ]);
-        }
     }
 
 
