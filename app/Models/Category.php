@@ -11,17 +11,33 @@ class Category extends Model
 
     protected $primaryKey = "id";
     protected $table = "categories";
-    public $timestamps = false;
 
     protected $fillable = [
-        "id",
         "name",
-        "status",
-        "image"
+        "image",
+        "seo_link",
+        "seo_title",
+        "seo_description",
+        "seo_keywords",
+        "top_menu",
+        "showcase",
+        "row",
+        "status"
     ];
 
     public function subCategory()
     {
         return $this->hasMany(SubCategory::class);
+    }
+
+    public static function booted()
+    {
+        static::creating(function ($model) {
+            $model->ip = request()->ip();
+        });
+
+        static::updating(function ($model) {
+            $model->ip = request()->ip();
+        });
     }
 }

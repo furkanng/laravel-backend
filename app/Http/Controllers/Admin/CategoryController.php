@@ -10,29 +10,17 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = auth()->guard("admin-api")->user();
-
-        if ($user) {
-
-            $category = Category::query()->orderBy("id", "DESC")->get();
-
-            return response()->json([
-                "status" => true,
-                "message" => "success",
-                "data" => $category,
-            ]);
-
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "User not found"
-            ]);
-        }
+        return response()->api(Category::all());
     }
 
     /**
@@ -48,43 +36,33 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->guard("admin-api")->user();
+        $data = new Category();
+        $data->name = $request->get("name");
+        $data->image = $request->file("image");
+        $data->status = $request->get("status", true);
 
-        if ($user) {
-            $data = new Category();
-            $data->name = $request->get("name");
-            $data->image = $request->file("image");
-            $data->status = $request->get("status", true);
+        $image = $data->image;
 
-            $image = $data->image;
+        if (isset($image)) {
+            $filename = $data->name . "." . $image->getClientOriginalExtension();
+            $image->storeAs("/category", $filename);
+            $data->image = $filename;
+        }
 
-            if (isset($image) && FtpControl::FtpLicanceControl()) {
-                $filename = $data->name . "." . $image->getClientOriginalExtension();
-                $image->storeAs("/category", $filename);
-                $data->image = $filename;
-            }
+        $result = $data->save();
 
-            $result = $data->save();
-
-            if ($result) {
-                return response()->json([
-                    "status" => true,
-                    "message" => "category added",
-                ]);
-            } else {
-                return response()->json([
-                    "status" => false,
-                    "message" => "category not added",
-                ], 401);
-            }
-
-
+        if ($result) {
+            return response()->json([
+                "status" => true,
+                "message" => "category added",
+            ]);
         } else {
             return response()->json([
                 "status" => false,
-                "message" => "User not found"
-            ]);
+                "message" => "category not added",
+            ], 401);
         }
+
     }
 
     /**
@@ -92,7 +70,8 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $model = Category::findOrFail($id);
+        return response()->api($model);
     }
 
     /**
@@ -100,23 +79,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $user = auth()->guard("admin-api")->user();
-
-        if ($user) {
-            $data = Category::findOrFail($id);
-
-            return response()->json([
-                "status" => true,
-                "message" => "success",
-                "data" => $data
-            ]);
-
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "User not found"
-            ]);
-        }
+        $model = Category::findOrFail($id);
+        return response()->api($model);
     }
 
     /**

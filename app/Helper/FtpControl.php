@@ -5,7 +5,7 @@ namespace App\Helper;
 use App\Models\Setting;
 use Dflydev\DotAccessData\Data;
 
-class FtpControl
+class FtpControl//TODO:İPTAL EDİLECEK
 {
     public static function getFtpSettings()
     {

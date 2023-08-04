@@ -36,7 +36,7 @@ class BulletinController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "email" => "email|required|string",
+            "email" => "email|required",
         ]);
         $model = new Bulletin();
         $model->fill(request()->all())->save();
@@ -53,21 +53,12 @@ class BulletinController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $model = Bulletin::findOrFail($id);
-        return response()->api($model);
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "email" => "email|required|sometimes|string",
+            "email" => "email|required|sometimes",
         ]);
         $model = Bulletin::findOrFail($id);
         $model->fill(request()->all())->save();
