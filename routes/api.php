@@ -36,18 +36,22 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/references', ReferenceCotroller::class);
     Route::resource('/documents', DocumentCotroller::class);
     Route::resource('/social-media-setting', SocialMediaController::class);
-    Route::resource('/general-setting', SettingController::class);
+    #Route::resource('/general-setting', SettingController::class);
     Route::resource('/mail-setting', MailController::class);
-    Route::resource('/contact-setting', ContactController::class);
     Route::resource('/bulletin', BulletinController::class);
     Route::resource('/sss', SssController::class);
-    Route::resource('/api-setting', ApiController::class);
     Route::resource('/category', CategoryController::class);
     Route::resource('/subcategory', SubCategoryController::class);
     Route::resource('/product-variant', VariantController::class);
     Route::resource('/products', ProductController::class);
     Route::post('/image-remove', [ProductImageController::class, "removeImage"]);
     Route::post('/image-remove-cover', [ProductImageController::class, "removeCoverImage"]);
+    Route::prefix("general-setting")->group(function () {
+        Route::resource('/api', ApiController::class);
+        Route::resource('/contact', ContactController::class);
+
+
+    });
 });
 
 //FRONT WITH AUTH API KODLARI

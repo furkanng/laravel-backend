@@ -8,41 +8,18 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = auth()->guard("admin-api")->user();
-
-        if ($user) {
-            $settingsMedia = Setting::query()->where("group_key", "api_settings")->get();
-            $data = [];
-
-            foreach ($settingsMedia as $key) {
-                $data[$key['key']] = $key['value'];
-            }
-
-            return response()->json([
-                "status" => true,
-                "message" => "success",
-                "data" => $data
-            ]);
-
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "User not found"
-            ]);
-        }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $model = new Setting();
+        return response()->api($model->get("api_settings"));
     }
 
     /**
@@ -50,42 +27,19 @@ class ApiController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->guard("admin-api")->user();
+        $model = new Setting();
+        $requestData = $request->all();
 
-        if ($user) {
-            Setting::query()->where("key", "whatsapp_api")->update(["value" => $request->get("whatsapp_api")]);
-            Setting::query()->where("key", "phone_api")->update(["value" => $request->get("phone_api")]);
-            Setting::query()->where("key", "analytics_api")->update(["value" => $request->get("analytics_api")]);
-            Setting::query()->where("key", "webmaster_api")->update(["value" => $request->get("webmaster_api")]);
-            Setting::query()->where("key", "map_api")->update(["value" => $request->get("map_api")]);
-            Setting::query()->where("key", "livesupport_api")->update(["value" => $request->get("livesupport_api")]);
-            Setting::query()->where("key", "rcaptha_api")->update(["value" => $request->get("rcaptha_api")]);
-
-            return response()->json([
-                "status" => true,
-                "message" => "success",
-            ]);
-
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "User not found"
-            ]);
+        foreach ($requestData as $key => $value) {
+            $model->set($key, [$value]);
         }
+        return response()->api($model->get("api_settings"));
     }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
     {
         //
     }
