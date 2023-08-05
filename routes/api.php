@@ -47,9 +47,9 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::post('/image-remove', [ProductImageController::class, "removeImage"]);
     Route::post('/image-remove-cover', [ProductImageController::class, "removeCoverImage"]);
     Route::prefix("general-setting")->group(function () {
-        Route::resource('/api', ApiController::class);
-        Route::resource('/contact', ContactController::class);
-
+        Route::resource('/api', ApiController::class)->only("index", "store");
+        Route::resource('/contact', ContactController::class)->only("index", "store");
+        Route::resource('/social-media', SocialMediaController::class);
 
     });
 });
