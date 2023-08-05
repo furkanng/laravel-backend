@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DocumentCotroller;
+use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\ProductController;
@@ -49,6 +50,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
         Route::resource('/api', ApiController::class)->only("index", "store");
         Route::resource('/contact', ContactController::class)->only("index", "store");
         Route::resource('/social-media', SocialMediaController::class)->only("index", "store");
+        Route::resource('/email', EmailController::class)->only("index", "store");
 
     });
 });
