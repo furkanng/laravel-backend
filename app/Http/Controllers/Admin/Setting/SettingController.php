@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
-class ApiController extends Controller
+class SettingController extends Controller
 {
     public function __construct()
     {
@@ -19,7 +19,7 @@ class ApiController extends Controller
     public function index()
     {
         $model = new Setting();
-        return response()->api($model->get("api_settings"));
+        return response()->api($model->get("general_settings"));
     }
 
     /**
@@ -33,7 +33,7 @@ class ApiController extends Controller
         foreach ($requestData as $key => $value) {
             $model->set($key, [$value]);
         }
-        return response()->api($model->get("api_settings"));
+        return response()->api($model->get("general_settings"));
     }
 
     /**
