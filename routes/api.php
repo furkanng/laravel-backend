@@ -35,7 +35,6 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/pages', PagesController::class);
     Route::resource('/references', ReferenceCotroller::class);
     Route::resource('/documents', DocumentCotroller::class);
-    Route::resource('/social-media-setting', SocialMediaController::class);
     #Route::resource('/general-setting', SettingController::class);
     Route::resource('/mail-setting', MailController::class);
     Route::resource('/bulletin', BulletinController::class);
@@ -49,7 +48,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::prefix("general-setting")->group(function () {
         Route::resource('/api', ApiController::class)->only("index", "store");
         Route::resource('/contact', ContactController::class)->only("index", "store");
-        Route::resource('/social-media', SocialMediaController::class);
+        Route::resource('/social-media', SocialMediaController::class)->only("index", "store");
 
     });
 });
