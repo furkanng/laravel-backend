@@ -20,14 +20,21 @@ class ResponseServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Response::macro('api', function ($model = null) {
+        Response::macro('api', function ($model = null, $relation = []) {
+
+            $relationData = [];
+            foreach ($relation as $key) {
+                $relationData[$key] = $model->$key;
+            }
 
             if (!empty($model) || $model == "true") {
+
                 return response()->json([
                     "status" => true,
                     "message" => "Transaction Successful",
                     "data" => $model
                 ]);
+
             } else {
                 return response()->json([
                     "status" => false,
@@ -35,7 +42,6 @@ class ResponseServiceProvider extends ServiceProvider
                     "data" => $model
                 ]);
             }
-
         });
     }
 }

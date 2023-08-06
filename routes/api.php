@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Setting\SocialMediaController;
 use App\Http\Controllers\Admin\SssController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\VariantCategoryController;
 use App\Http\Controllers\Admin\VariantController;
 use App\Http\Controllers\Front\AuthController as FrontAuth;
 use App\Http\Controllers\Front\BasketController;
@@ -41,7 +42,8 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/sss', SssController::class);
     Route::resource('/category', CategoryController::class);
     Route::resource('/subcategory', SubCategoryController::class);
-    Route::resource('/product-variant', VariantController::class);
+    Route::resource('/variant', VariantController::class);
+    Route::resource('/variant-category', VariantCategoryController::class);
     Route::resource('/products', ProductController::class);
     Route::post('/image-remove', [ProductImageController::class, "removeImage"]);
     Route::post('/image-remove-cover', [ProductImageController::class, "removeCoverImage"]);
@@ -51,7 +53,6 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
         Route::resource('/contact', ContactController::class)->only("index", "store");
         Route::resource('/social-media', SocialMediaController::class)->only("index", "store");
         Route::resource('/email', EmailController::class)->only("index", "store");
-
     });
 });
 
