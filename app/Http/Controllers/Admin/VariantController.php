@@ -8,37 +8,17 @@ use Illuminate\Http\Request;
 
 class VariantController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = auth()->guard("admin-api")->user();
-
-        if ($user) {
-
-            $data = Variant::query()->orderBy("id", "DESC")->get();
-
-            return response()->json([
-                "status" => true,
-                "message" => "success",
-                "category" => $data
-            ]);
-
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "User not found"
-            ]);
-        }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->api(Variant::all());
     }
 
     /**
@@ -46,35 +26,13 @@ class VariantController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->guard("admin-api")->user();
-
-        if ($user) {
-            $data = new Variant();
-            $data->name = $request->get("name");
-            $data->feature_id = $request->get("feature_id");
-            $data->status = $request->get("status", true);
-
-            $result = $data->save();
-
-            if ($result) {
-                return response()->json([
-                    "status" => true,
-                    "message" => "variant added",
-                ]);
-            } else {
-                return response()->json([
-                    "status" => false,
-                    "message" => "variant not added",
-                ], 401);
-            }
-
-
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "User not found"
-            ]);
-        }
+        $request->validate([
+            "name" => "required",
+            "category_id" => "required",
+        ]);
+        $model = new Variant();
+        $model->fill(request()->all())->save();
+        return response()->api($model);
     }
 
     /**
@@ -82,31 +40,8 @@ class VariantController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $user = auth()->guard("admin-api")->user();
-
-        if ($user) {
-            $data = Variant::findOrFail($id);
-
-            return response()->json([
-                "status" => true,
-                "message" => "success",
-                "data" => $data
-            ]);
-
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "User not found"
-            ]);
-        }
+        $model = Variant::findOrFail($id);
+        return response()->api($model, ["category"]);
     }
 
     /**
@@ -114,48 +49,13 @@ class VariantController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = auth()->guard("admin-api")->user();
-
-        if ($user) {
-            $data = Variant::findOrFail($id);
-
-            $name = $request->get("name");
-            $featureId = $request->get("feature_id");
-            $status = $request->get("status");
-
-            if (isset($name)) {
-                $data->name = $name;
-            }
-
-            if (isset($featureId)) {
-                $data->feature_id = $featureId;
-            }
-
-            if (isset($status)) {
-                $data->status = $status;
-            }
-
-            $result = $data->save();
-
-            if ($result) {
-                return response()->json([
-                    "status" => true,
-                    "message" => "success",
-                ]);
-            } else {
-                return response()->json([
-                    "status" => false,
-                    "message" => "error",
-                ], 401);
-            }
-
-
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "User not found"
-            ]);
-        }
+        $request->validate([
+            "name" => "required|sometimes",
+            "category_id" => "required|sometimes",
+        ]);
+        $model = Variant::findOrFail($id);
+        $model->fill(request()->all())->save();
+        return response()->api($model);
     }
 
     /**
@@ -163,30 +63,8 @@ class VariantController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = auth()->guard("admin-api")->user();
-
-        if ($user) {
-            $page = Variant::findOrFail($id);
-
-            $result = $page->delete();
-
-            if ($result) {
-                return response()->json([
-                    "status" => true,
-                    "message" => "success",
-                ]);
-            } else {
-                return response()->json([
-                    "status" => false,
-                    "message" => "error",
-                ], 401);
-            }
-
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "User not found"
-            ]);
-        }
+        $model = Variant::findOrFail($id);
+        $model->delete();
+        return response()->api($model);
     }
 }
