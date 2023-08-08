@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /*
         Schema::defaultStringLength(191);// Satır uzunluğu hatası için kısıtlama yapan çözüm
 
         //migrate fresh ve db:seed yaparken tabloyu bulamadığı için hata veriyor. onun için önce veri varmı diye kontrol ediyoruz.
@@ -43,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
 
             \config()->set("mail", $mail);
         }
+        */
 
     }
 
