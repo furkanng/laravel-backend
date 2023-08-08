@@ -10,13 +10,11 @@ class Sss extends Model
     use HasFactory;
 
     protected $primaryKey = "id";
-
     protected $table = "sss";
-    public $timestamps=false;
+
     protected $fillable = [
-        "id",
-        "question",
-        "answer",
+        "title",
+        "content",
         "status"
     ];
 }

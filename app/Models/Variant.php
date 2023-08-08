@@ -11,17 +11,15 @@ class Variant extends Model
 
     protected $primaryKey = "id";
     protected $table = "variants";
-    public $timestamps = false;
 
     protected $fillable = [
-        "id",
         "name",
-        "feature_id",
+        "category_id",
         "status"
     ];
 
-    public function feature()
+    public function category()
     {
-        return $this->belongsTo(Feature::class, 'feature_id');
+        return $this->belongsTo(VariantCategory::class, 'category_id', "id");
     }
 }

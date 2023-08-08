@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MailRequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
-class ApiController extends Controller
+class MailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,7 @@ class ApiController extends Controller
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
-            $settingsMedia = Setting::query()->where("group_key", "api_settings")->get();
+            $settingsMedia = Setting::query()->where("group_key", "email_settings")->get();
             $data = [];
 
             foreach ($settingsMedia as $key) {
@@ -48,18 +49,19 @@ class ApiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(MailRequest $request)
     {
         $user = auth()->guard("admin-api")->user();
 
         if ($user) {
-            Setting::query()->where("key", "whatsapp_api")->update(["value" => $request->get("whatsapp_api")]);
-            Setting::query()->where("key", "phone_api")->update(["value" => $request->get("phone_api")]);
-            Setting::query()->where("key", "analytics_api")->update(["value" => $request->get("analytics_api")]);
-            Setting::query()->where("key", "webmaster_api")->update(["value" => $request->get("webmaster_api")]);
-            Setting::query()->where("key", "map_api")->update(["value" => $request->get("map_api")]);
-            Setting::query()->where("key", "livesupport_api")->update(["value" => $request->get("livesupport_api")]);
-            Setting::query()->where("key", "rcaptha_api")->update(["value" => $request->get("rcaptha_api")]);
+            Setting::query()->where("key", "mailer_encryption")->update(["value" => $request->get("mailer_encryption")]);
+            Setting::query()->where("key", "mailer_host")->update(["value" => $request->get("mailer_host")]);
+            Setting::query()->where("key", "mailer_password")->update(["value" => $request->get("mailer_password")]);
+            Setting::query()->where("key", "mailer_username")->update(["value" => $request->get("mailer_username")]);
+            Setting::query()->where("key", "mailer_port")->update(["value" => $request->get("mailer_port")]);
+            Setting::query()->where("key", "mailer_from_name")->update(["value" => $request->get("mailer_from_name")]);
+            Setting::query()->where("key", "mailer_from_address")->update(["value" => $request->get("mailer_from_address")]);
+            Setting::query()->where("key", "mailer_driver")->update(["value" => $request->get("mailer_driver")]);
 
             return response()->json([
                 "status" => true,

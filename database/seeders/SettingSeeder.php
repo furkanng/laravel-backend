@@ -15,7 +15,7 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         DB::table("settings")->delete();
-      
+
         $defaultData =
             [
                 ['title' => 'Set Mailer Title', 'key' => 'mailer_from_name', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],
@@ -26,12 +26,6 @@ class SettingSeeder extends Seeder
                 ['title' => 'Set Mailer Username', 'key' => 'mailer_username', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],
                 ['title' => 'Set Mailer Encryption', 'key' => 'mailer_encryption', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],
                 ['title' => 'Set Mailer Host', 'key' => 'mailer_host', 'value' => '', "type" => 'text', "group_key" => 'email_settings'],
-                ['title' => 'Set Filesystem Disk', 'key' => 'filesystem_disk', 'value' => '', "type" => 'text', "group_key" => 'ftp_settings'],
-                ['title' => 'Set Filesystem Host', 'key' => 'ftp_host', 'value' => '', "type" => 'text', "group_key" => 'ftp_settings'],
-                ['title' => 'Set Filesystem Username', 'key' => 'ftp_username', 'value' => '', "type" => 'text', "group_key" => 'ftp_settings'],
-                ['title' => 'Set Filesystem Password', 'key' => 'ftp_password', 'value' => '', "type" => 'text', "group_key" => 'ftp_settings'],
-                ['title' => 'Set Filesystem Root', 'key' => 'ftp_root', 'value' => '', "type" => 'text', "group_key" => 'ftp_settings'],
-                ['title' => 'Set Filesystem Port', 'key' => 'ftp_port', 'value' => '', "type" => 'text', "group_key" => 'ftp_settings'],
                 ['title' => 'Set Site Logo', 'key' => 'site_logo', 'value' => '', "type" => 'image', "group_key" => 'general_settings'],
                 ['title' => 'Set Site Footer Logo', 'key' => 'site_footer_logo', 'value' => '', "type" => 'image', "group_key" => 'general_settings'],
                 ['title' => 'Set Site Favicon', 'key' => 'site_favicon', 'value' => '', "type" => 'image', "group_key" => 'general_settings'],

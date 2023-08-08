@@ -12,14 +12,32 @@ class Setting extends Model
     protected $primaryKey = "id";
 
     protected $table = "settings";
+
     public $timestamps = false;
 
     protected $fillable = [
-        "id",
         "title",
         "key",
         "value",
         "type",
         "group_key",
     ];
+
+    public function get($key)
+    {
+        $model = Setting::query()->where("group_key", $key)->get();
+        $data = [];
+
+        foreach ($model as $key) {
+            $data[$key['key']] = $key['value'];
+        }
+        return $data;
+    }
+
+    public function set($key, $value)
+    {
+        foreach ($value as $item) {
+            Setting::where("key", $key)->update(["value" => $item]);
+        }
+    }
 }

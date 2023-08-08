@@ -11,13 +11,26 @@ class Page extends Model
 
     protected $primaryKey = "id";
     protected $table = "pages";
-    public $timestamps = false;
 
     protected $fillable = [
-        "id",
         "title",
-        "description",
+        "content",
+        "image",
+        "seo_link",
+        "seo_title",
+        "seo_description",
+        "seo_keywords",
         "status",
-        "image"
     ];
+
+    public static function booted()
+    {
+        static::creating(function ($model) {
+
+        });
+
+        static::updating(function ($model) {
+
+        });
+    }
 }

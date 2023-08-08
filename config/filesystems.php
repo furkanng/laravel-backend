@@ -63,7 +63,9 @@ return [
             "password" => env("FTP_PASSWORD"),
             "root" => env("FTP_ROOT"),
             "port" =>(int)env("FTP_PORT"),
-
+            'options' => [
+                'transferMode' => FTP_BINARY,
+            ],
         ]
 
     ],
