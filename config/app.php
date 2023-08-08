@@ -160,6 +160,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -171,6 +172,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         ResponseServiceProvider::class,
+
     ])->toArray(),
 
     /*
@@ -188,6 +190,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         "JWTAuth" => \Tymon\JWTAuth\Facades\JWTAuth::class,
         "JWTFactory" => \Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];
