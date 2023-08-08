@@ -22,9 +22,6 @@ return new class extends Migration {
             $table->string("unit")->nullable();
             $table->string("piece")->nullable();
             $table->timestamps();
-            $table->foreign("order_id")->references("id")->on("orders");
-            $table->foreign("product_id")->references("id")->on("products");
-            $table->foreign("sub_product_id")->references("id")->on("sub_products");
         });
     }
 

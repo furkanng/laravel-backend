@@ -12,15 +12,14 @@ return new class extends Migration {
     {
         Schema::create('sub_categories', function (Blueprint $table) {
             $table->increments("id");
-            $table->string("name")->nullable();
-            $table->integer("category_id");
-            $table->string("seo_link")->nullable();
+            $table->string("name");
+            $table->integer("category_id")->nullable();
+            $table->string("seo_link");
             $table->string("seo_title")->nullable();
             $table->string("seo_description")->nullable();
             $table->string("seo_keywords")->nullable();
             $table->boolean("status")->default(true);
             $table->timestamps();
-            $table->foreign("category_id")->references("id")->on("categories");
         });
     }
 
