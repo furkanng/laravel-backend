@@ -12,10 +12,9 @@ return new class extends Migration {
     {
         Schema::create('variants', function (Blueprint $table) {
             $table->increments("id");
-            $table->string("name")->nullable();
+            $table->string("name");
             $table->integer("category_id");
             $table->boolean("status")->default(1);
-            $table->foreign("category_id")->references("id")->on("variant_categories");
             $table->timestamps();
         });
     }

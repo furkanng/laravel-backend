@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Helper\MailControl;
 use App\Models\Setting;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -24,11 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        /*
+
         Schema::defaultStringLength(191);// Satır uzunluğu hatası için kısıtlama yapan çözüm
 
         //migrate fresh ve db:seed yaparken tabloyu bulamadığı için hata veriyor. onun için önce veri varmı diye kontrol ediyoruz.
-        if (Setting::query()->where("group_key", "email_settings")->exists()) {
+        if (Schema::hasTable('settings')) {
             $mail = [
                 "driver" => MailControl::getMailerSettings()["MAIL_DRIVER"],
                 "host" => MailControl::getMailerSettings()["MAIL_HOST"],
@@ -44,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
 
             \config()->set("mail", $mail);
         }
-        */
+
 
     }
 

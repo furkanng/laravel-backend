@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('sub_products', function (Blueprint $table) {
             $table->increments("id");
-            $table->integer("product_id");
+            $table->integer("product_id")->nullable();
             $table->string("variant_1")->nullable();
             $table->string("variant_2")->nullable();
             $table->string("code")->nullable();
@@ -21,7 +21,6 @@ return new class extends Migration {
             $table->string("unit")->nullable();
             $table->boolean("status")->default(true);
             $table->timestamps();
-            $table->foreign("product_id")->references("id")->on("products");
         });
     }
 

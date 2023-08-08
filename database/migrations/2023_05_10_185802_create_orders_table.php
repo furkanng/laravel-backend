@@ -15,21 +15,17 @@ return new class extends Migration {
             $table->integer("user_id");
             $table->integer("shipping_address");
             $table->integer("invoice_address");
-            $table->string("payment_type")->nullable();
-            $table->string("payment_status")->nullable();
-            $table->string("payment_detail")->nullable();
+            $table->string("payment_type");
+            $table->string("payment_status");
+            $table->string("payment_detail");
             $table->text("note")->nullable();
-            $table->string("order_code")->nullable();
+            $table->string("order_code");
             $table->string("cargo_company_name")->nullable();
             $table->string("cargo_number")->nullable();
             $table->string("cargo_price")->nullable();
             $table->integer("order_status")->nullable();
             $table->double("total_price");
             $table->timestamps();
-            $table->foreign("user_id")->references("id")->on("users");
-            $table->foreign("shipping_address")->references("id")->on("addresses");
-            $table->foreign("invoice_address")->references("id")->on("addresses");
-            $table->foreign("order_status")->references("id")->on("order_statuses");
         });
     }
 

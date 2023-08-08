@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('sub_sub_categories', function (Blueprint $table) {
             $table->increments("id");
             $table->string("name")->nullable();
-            $table->integer("sub_category_id");
+            $table->integer("sub_category_id")->nullable();
             $table->integer("brands");//TOOD: DÜŞÜN BUNU
             $table->string("seo_link")->nullable();
             $table->string("seo_title")->nullable();
@@ -21,8 +21,6 @@ return new class extends Migration {
             $table->string("seo_keywords")->nullable();
             $table->boolean("status")->default(true);
             $table->timestamps();
-            $table->foreign("sub_category_id")->references("id")->on("sub_categories");
-            $table->foreign("brands")->references("id")->on("brands");
         });
     }
 
