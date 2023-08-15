@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('product_image', function (Blueprint $table) {
             $table->increments("id");
-            $table->integer("product_id");
+            $table->integer("product_id")->unsigned();
             $table->string("images");
             $table->timestamps();
         });

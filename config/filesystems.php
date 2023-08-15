@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'ftp'),//önceden local olarak tanımlıydı
+    'default' => env('FILESYSTEM_DISK', 'public'),//önceden local olarak tanımlıydı
 
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app/public'),
             'throw' => false,
         ],
 
@@ -62,7 +62,7 @@ return [
             "username" => env("FTP_USERNAME"),
             "password" => env("FTP_PASSWORD"),
             "root" => env("FTP_ROOT"),
-            "port" =>(int)env("FTP_PORT"),
+            "port" => (int)env("FTP_PORT"),
             'options' => [
                 'transferMode' => FTP_BINARY,
             ],

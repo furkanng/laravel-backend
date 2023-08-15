@@ -13,12 +13,12 @@ return new class extends Migration {
         Schema::create('products', function (Blueprint $table) {
             $table->increments("id");
             $table->string("name");
-            $table->integer("category_id")->nullable();
-            $table->integer("subcategory_id")->nullable();
-            $table->integer("sub_subcategory_id")->nullable();
-            $table->integer("brand_id")->nullable();
-            $table->integer("variant_category_id")->nullable();
-            $table->integer("variant_id")->nullable();
+            $table->integer("category_id")->unsigned();
+            $table->integer("subcategory_id")->unsigned();
+            $table->integer("sub_subcategory_id")->unsigned();
+            $table->integer("brand_id")->unsigned();
+            $table->integer("variant_category_id")->unsigned();
+            $table->integer("variant_id")->unsigned();
             $table->double("price")->nullable();
             $table->integer("stock")->nullable();
             $table->string("code")->nullable();
