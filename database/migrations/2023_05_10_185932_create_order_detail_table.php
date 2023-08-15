@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('order_detail', function (Blueprint $table) {
             $table->increments("id");
-            $table->integer("order_id");
-            $table->integer("product_id")->nullable();
-            $table->integer("sub_product_id")->nullable();
+            $table->integer("order_id")->unsigned();
+            $table->integer("product_id")->unsigned();
+            $table->integer("sub_product_id")->unsigned();
             $table->string("product_name")->nullable();
             $table->string("sub_product_name")->nullable();
             $table->json("variants")->nullable();

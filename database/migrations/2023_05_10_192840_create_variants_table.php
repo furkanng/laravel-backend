@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('variants', function (Blueprint $table) {
             $table->increments("id");
             $table->string("name");
-            $table->integer("category_id");
+            $table->integer("category_id")->unsigned();
             $table->boolean("status")->default(1);
             $table->timestamps();
         });

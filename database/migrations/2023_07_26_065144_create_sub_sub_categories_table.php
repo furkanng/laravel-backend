@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('sub_sub_categories', function (Blueprint $table) {
             $table->increments("id");
             $table->string("name")->nullable();
-            $table->integer("sub_category_id")->nullable();
-            $table->integer("brands");//TOOD: DÜŞÜN BUNU
+            $table->integer("sub_category_id")->unsigned();
+            $table->integer("brands")->unsigned();//TOOD: DÜŞÜN BUNU
             $table->string("seo_link")->nullable();
             $table->string("seo_title")->nullable();
             $table->string("seo_description")->nullable();

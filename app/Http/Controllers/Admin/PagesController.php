@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 
 class PagesController extends Controller
 {
@@ -31,21 +30,7 @@ class PagesController extends Controller
             "title" => "required",
         ]);
         $model = new Page();
-        $model->fill(request()->all());
-
-
-        $image = $model->image;
-
-        $img = Image::make($image)->resize(300, 200);
-
-        if (isset($image)) {
-            $filename = $model->title . "." . $image->getClientOriginalExtension();
-            $image->storeAs("/page", $filename);
-            $model->image = $filename;
-        }
-
-
-        dd($model);
+        $model->fill(request()->all())->save();
         return response()->api($model);
     }
 
