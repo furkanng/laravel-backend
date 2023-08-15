@@ -25,7 +25,6 @@ class Page extends Model
         "status",
     ];
 
-
     public static function booted()
     {
         static::creating(function ($model) {
