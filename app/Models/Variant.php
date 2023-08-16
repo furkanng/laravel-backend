@@ -9,7 +9,6 @@ class Variant extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = "id";
     protected $table = "variants";
 
     protected $fillable = [

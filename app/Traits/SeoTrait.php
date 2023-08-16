@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\LinkList;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use function Laravel\Prompts\error;
 
 trait SeoTrait
 {
@@ -20,10 +21,11 @@ trait SeoTrait
 
         static::updating(function ($model) {
             self::seoLinkUpdateMapper($model);
-            self::seoTitleMapper($model);
-            self::seoDescriptionMapper($model);
-            self::seoKeywordsMapper($model);
             self::linkCreate($model);
+        });
+
+        static::deleting(function ($model) {
+            self::linkDelete($model);
         });
     }
 
@@ -141,44 +143,22 @@ trait SeoTrait
             $originalLink = $model->getOriginal("seo_link");
             $attributesLink = $model->getAttribute("seo_link");
 
-            if (Schema::hasColumn($model->table, "title")) {
-                if ($originalLink !== $attributesLink) {//seo_link gönderildiyse
-                    $newLink = Str::slug($attributesLink, "-", "tr");
-                    $control = self::linkControl($newLink);
-                    if ($control) {
-                        $model->seo_link = $newLink;
-                    } else {
-                        return false;
-                    }
-                } else {//seo_link gönderilmediyse
-                    $newLink = Str::slug($model->getAttribute("title"), "-", "tr");
-                    $control = self::linkControl($newLink);
-                    if ($control) {
-                        $model->seo_link = $newLink;
-                    } else {
-                        return false;
-                    }
-                }
-
-            } elseif (Schema::hasColumn($model->table, "name")) {
-                if ($originalLink !== $attributesLink) {
-                    $newLink = Str::slug($attributesLink, "-", "tr");
-                    $control = self::linkControl($newLink);
-                    if ($control) {
-                        $model->seo_link = $newLink;
-                    } else {
-                        return false;
-                    }
+            if ($originalLink !== $attributesLink) {
+                $newLink = Str::slug($attributesLink, "-", "tr");
+                $control = self::linkControl($newLink);
+                if ($control) {
+                    $model->seo_link = $newLink;
                 } else {
-                    $newLink = Str::slug($model->getAttribute("name"), "-", "tr");
-                    $control = self::linkControl($newLink);
-                    if ($control) {
-                        $model->seo_link = $newLink;
-                    } else {
-                        return false;
-                    }
+                    $model->seo_link = $originalLink;
                 }
             }
+        }
+    }
+
+    public static function linkDelete($model)
+    {
+        if (isset($model->seo_link)) {
+            LinkList::query()->where("link", $model->seo_link)->delete();
         }
     }
 

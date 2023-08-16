@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BulletinController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DocumentCotroller;
+use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
@@ -36,7 +36,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::post('/logout', [AuthController::class, "logout"]);
     Route::resource('/pages', PagesController::class);
     Route::resource('/references', ReferenceCotroller::class);
-    Route::resource('/documents', DocumentCotroller::class);
+    Route::resource('/documents', DocumentController::class);
     Route::resource('/mail-setting', MailController::class);
     Route::resource('/bulletin', BulletinController::class);
     Route::resource('/sss', SssController::class);
