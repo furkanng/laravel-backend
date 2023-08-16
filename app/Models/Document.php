@@ -2,18 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\ImageTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
 {
-    use HasFactory;
+    use HasFactory, ImageTrait;
 
-    protected $primaryKey = "id";
     protected $table = "documents";
 
     protected $fillable = [
-        "id",
         "title",
         "image",
         "status",
