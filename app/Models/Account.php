@@ -2,18 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\ImageTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
-    use HasFactory;
+    use HasFactory, ImageTrait;
 
-    protected $primaryKey = "id";
     protected $table = "accounts";
 
     protected $fillable = [
-        "id",
         "bank_name",
         "name",
         "status",
