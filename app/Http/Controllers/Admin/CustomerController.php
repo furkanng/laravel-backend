@@ -3,24 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->api(User::all());
     }
 
     /**
@@ -28,7 +26,9 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $model = new User();
+        $model->fill($request->all())->save();
+        return response()->api($model);
     }
 
     /**
@@ -36,15 +36,8 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $model = User::findOrFail($id);
+        return response()->api($model);
     }
 
     /**
@@ -52,7 +45,9 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $model = User::findOrFail($id);
+        $model->fill(request()->all())->save();
+        return response()->api($model);
     }
 
     /**
@@ -60,6 +55,8 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $model = User::findOrFail($id);
+        $model->delete();
+        return response()->api($model);
     }
 }
