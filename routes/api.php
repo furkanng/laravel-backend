@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BulletinController;
 use App\Http\Controllers\Admin\CatalogController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\PagesController;
@@ -48,6 +49,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/branch', BranchController::class);
     Route::resource('/brand', BrandController::class);
     Route::resource('/catalog', CatalogController::class);
+    Route::resource('/comment', CommentController::class);
     Route::resource('/customer', CustomerController::class);
     Route::resource('/references', ReferenceCotroller::class);
     Route::resource('/documents', DocumentController::class);
