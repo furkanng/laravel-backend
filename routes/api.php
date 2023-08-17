@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BulletinController;
+use App\Http\Controllers\Admin\CatalogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DocumentController;
@@ -46,6 +47,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/blog', BlogController::class);
     Route::resource('/branch', BranchController::class);
     Route::resource('/brand', BrandController::class);
+    Route::resource('/catalog', CatalogController::class);
     Route::resource('/customer', CustomerController::class);
     Route::resource('/references', ReferenceCotroller::class);
     Route::resource('/documents', DocumentController::class);
