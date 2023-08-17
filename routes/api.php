@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\AddressController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BulletinController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
@@ -40,6 +41,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/pages', PagesController::class);
     Route::resource('/account', AccountController::class);
     Route::resource('/address', AddressController::class);
+    Route::resource('/blog', BlogController::class);
     Route::resource('/customer', CustomerController::class);
     Route::resource('/references', ReferenceCotroller::class);
     Route::resource('/documents', DocumentController::class);
