@@ -9,18 +9,16 @@ class Branch extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = "id";
     protected $table = "branches";
 
     protected $fillable = [
-        "id",
         "name",
         "address",
-        "status",
         "phone",
         "gsm",
         "email",
         "city",
-        "district"
+        "district",
+        "status",
     ];
 }
