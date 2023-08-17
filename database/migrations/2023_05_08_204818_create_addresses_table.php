@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string("city");
             $table->string("district");
             $table->string("title")->nullable();
-            $table->string("invoice_type")->nullable();
+            $table->string("invoice_type");
             $table->string("tax_number")->nullable();
             $table->string("tax_area")->nullable();
             $table->string("company_name")->nullable();

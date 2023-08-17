@@ -9,11 +9,9 @@ class Address extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = "id";
     protected $table = "addresses";
 
     protected $fillable = [
-        "id",
         "email",
         "name",
         "surname",
@@ -27,11 +25,21 @@ class Address extends Model
         "tax_area",
         "company_name",
         "status",
-        "user_id"
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public static function booted()
+    {
+        static::creating(function ($model) {
+            $model->user_id = auth("api")->user()->id;
+        });
+
+        static::updating(function ($model) {
+            $model->user_id = auth("api")->user()->id;
+        });
     }
 }
