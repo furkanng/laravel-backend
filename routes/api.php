@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\LinkListController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
@@ -53,6 +54,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/catalog', CatalogController::class);
     Route::resource('/comment', CommentController::class);
     Route::resource('/customer', CustomerController::class);
+    Route::resource('/package', PackageController::class);
     Route::resource('/link-list', LinkListController::class);
     Route::resource('/message', MessageController::class);
     Route::resource('/references', ReferenceCotroller::class);

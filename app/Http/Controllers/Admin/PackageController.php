@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Message;
+use App\Models\Package;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+class PackageController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return response()->api(Message::all());
+        return response()->api(Package::all());
     }
 
     /**
@@ -26,7 +26,12 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-
+        $request->validate([
+            "title" => "required",
+        ]);
+        $model = new Package();
+        $model->fill(request()->all())->save();
+        return response()->api($model);
     }
 
     /**
@@ -34,7 +39,7 @@ class MessageController extends Controller
      */
     public function show(string $id)
     {
-        $model = Message::findOrFail($id);
+        $model = Package::findOrFail($id);
         return response()->api($model);
     }
 
@@ -43,7 +48,12 @@ class MessageController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
+        $request->validate([
+            "title" => "required|sometimes",
+        ]);
+        $model = Package::findOrFail($id);
+        $model->fill(request()->all())->save();
+        return response()->api($model);
     }
 
     /**
@@ -51,7 +61,7 @@ class MessageController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Message::findOrFail($id);
+        $model = Package::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

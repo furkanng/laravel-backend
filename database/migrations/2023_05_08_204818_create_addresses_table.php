@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->increments("id");
-            $table->string("email")->unique();
+            $table->string("email");
             $table->integer("user_id")->unsigned();
             $table->string("name");
             $table->string("surname");

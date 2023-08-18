@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->increments("id");
             $table->string('subject');
             $table->string('name');
-            $table->string('mail');
+            $table->string('email');
             $table->string('phone')->nullable();
             $table->text('content');
             $table->timestamps();
