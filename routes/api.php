@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ReferenceController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\Setting\ApiController;
 use App\Http\Controllers\Admin\Setting\ContactController;
 use App\Http\Controllers\Admin\Setting\EmailController;
@@ -57,6 +58,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/link-list', LinkListController::class);
     Route::resource('/message', MessageController::class);
     Route::resource('/reference', ReferenceController::class);
+    Route::resource('/service', ServiceController::class);
     Route::resource('/documents', DocumentController::class);
     Route::resource('/bulletin', BulletinController::class);
     Route::resource('/sss', SssController::class);
