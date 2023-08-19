@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Controller;
-use App\Models\Document;
+use App\Models\LinkList;
 use Illuminate\Http\Request;
 
-class DocumentController extends Controller
+class LinkListController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        return response()->api(Document::all());
+        return response()->api(LinkList::all());
     }
 
     /**
@@ -26,12 +26,7 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "title" => "required",
-        ]);
-        $model = new Document();
-        $model->fill(request()->all())->save();
-        return response()->api($model);
+        //
     }
 
     /**
@@ -39,7 +34,7 @@ class DocumentController extends Controller
      */
     public function show(string $id)
     {
-        $model = Document::findOrFail($id);
+        $model = LinkList::findOrFail($id);
         return response()->api($model);
     }
 
@@ -48,12 +43,7 @@ class DocumentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            "title" => "required|sometimes",
-        ]);
-        $model = Document::findOrFail($id);
-        $model->fill(request()->all())->save();
-        return response()->api($model);
+        //
     }
 
     /**
@@ -61,7 +51,7 @@ class DocumentController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Document::findOrFail($id);
+        $model = LinkList::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

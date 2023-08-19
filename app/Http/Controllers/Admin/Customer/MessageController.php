@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Models\Address;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
-class AddressController extends Controller
+class MessageController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        return response()->api(Address::all());
+        return response()->api(Message::all());
     }
 
     /**
@@ -26,7 +26,7 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -34,7 +34,7 @@ class AddressController extends Controller
      */
     public function show(string $id)
     {
-        $model = Address::findOrFail($id);
+        $model = Message::findOrFail($id);
         return response()->api($model);
     }
 
@@ -43,7 +43,7 @@ class AddressController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**
@@ -51,7 +51,7 @@ class AddressController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Address::findOrFail($id);
+        $model = Message::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

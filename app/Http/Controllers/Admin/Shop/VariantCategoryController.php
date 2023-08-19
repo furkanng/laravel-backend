@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Models\Page;
+use App\Models\VariantCategory;
 use Illuminate\Http\Request;
 
-class PagesController extends Controller
+class VariantCategoryController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        return response()->api(Page::all());
+        return response()->api(VariantCategory::all());
     }
 
     /**
@@ -27,9 +27,9 @@ class PagesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "title" => "required",
+            "name" => "required",
         ]);
-        $model = new Page();
+        $model = new VariantCategory();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -39,8 +39,8 @@ class PagesController extends Controller
      */
     public function show(string $id)
     {
-        $model = Page::findOrFail($id);
-        return response()->api($model);
+        $model = VariantCategory::findOrFail($id);
+        return response()->api($model, ["variants"]);
     }
 
     /**
@@ -49,9 +49,9 @@ class PagesController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "title" => "required|sometimes",
+            "name" => "required|sometimes",
         ]);
-        $model = Page::findOrFail($id);
+        $model = VariantCategory::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -61,8 +61,9 @@ class PagesController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Page::findOrFail($id);
+        $model = VariantCategory::findOrFail($id);
         $model->delete();
+        $model->variants()->delete();
         return response()->api($model);
     }
 }

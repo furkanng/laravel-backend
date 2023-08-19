@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Authentication;
 
 use App\Helper\MailControl;
 use App\Http\Controllers\Controller;
@@ -10,7 +10,6 @@ use App\Mail\SendMail;
 use App\Models\Admin;
 use App\Models\PasswordReset;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 

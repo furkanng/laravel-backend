@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Message;
+use App\Models\Catalog;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+class CatalogController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return response()->api(Message::all());
+        return response()->api(Catalog::all());
     }
 
     /**
@@ -26,7 +26,12 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-
+        $request->validate([
+            "title" => "required",
+        ]);
+        $model = new Catalog();
+        $model->fill(request()->all())->save();
+        return response()->api($model);
     }
 
     /**
@@ -34,7 +39,7 @@ class MessageController extends Controller
      */
     public function show(string $id)
     {
-        $model = Message::findOrFail($id);
+        $model = Catalog::findOrFail($id);
         return response()->api($model);
     }
 
@@ -43,7 +48,12 @@ class MessageController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
+        $request->validate([
+            "title" => "required|sometimes",
+        ]);
+        $model = Catalog::findOrFail($id);
+        $model->fill(request()->all())->save();
+        return response()->api($model);
     }
 
     /**
@@ -51,7 +61,7 @@ class MessageController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Message::findOrFail($id);
+        $model = Catalog::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

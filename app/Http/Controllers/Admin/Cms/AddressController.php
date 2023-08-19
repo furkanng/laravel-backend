@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Comment;
+use App\Models\Address;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class AddressController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return response()->api(Comment::all());
+        return response()->api(Address::all());
     }
 
     /**
@@ -34,7 +34,7 @@ class CommentController extends Controller
      */
     public function show(string $id)
     {
-        $model = Comment::findOrFail($id);
+        $model = Address::findOrFail($id);
         return response()->api($model);
     }
 
@@ -51,7 +51,7 @@ class CommentController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Comment::findOrFail($id);
+        $model = Address::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

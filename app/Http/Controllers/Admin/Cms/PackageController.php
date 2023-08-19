@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\VariantCategory;
+use App\Models\Package;
 use Illuminate\Http\Request;
 
-class VariantCategoryController extends Controller
+class PackageController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class VariantCategoryController extends Controller
      */
     public function index()
     {
-        return response()->api(VariantCategory::all());
+        return response()->api(Package::all());
     }
 
     /**
@@ -27,9 +27,9 @@ class VariantCategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "name" => "required",
+            "title" => "required",
         ]);
-        $model = new VariantCategory();
+        $model = new Package();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -39,8 +39,8 @@ class VariantCategoryController extends Controller
      */
     public function show(string $id)
     {
-        $model = VariantCategory::findOrFail($id);
-        return response()->api($model, ["variants"]);
+        $model = Package::findOrFail($id);
+        return response()->api($model);
     }
 
     /**
@@ -49,9 +49,9 @@ class VariantCategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "name" => "required|sometimes",
+            "title" => "required|sometimes",
         ]);
-        $model = VariantCategory::findOrFail($id);
+        $model = Package::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -61,9 +61,8 @@ class VariantCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = VariantCategory::findOrFail($id);
+        $model = Package::findOrFail($id);
         $model->delete();
-        $model->variants()->delete();
         return response()->api($model);
     }
 }

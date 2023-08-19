@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Package;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 
-class PackageController extends Controller
+class BlogController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class PackageController extends Controller
      */
     public function index()
     {
-        return response()->api(Package::all());
+        return response()->api(Blog::all());
     }
 
     /**
@@ -29,7 +29,7 @@ class PackageController extends Controller
         $request->validate([
             "title" => "required",
         ]);
-        $model = new Package();
+        $model = new Blog();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -39,7 +39,7 @@ class PackageController extends Controller
      */
     public function show(string $id)
     {
-        $model = Package::findOrFail($id);
+        $model = Blog::findOrFail($id);
         return response()->api($model);
     }
 
@@ -51,7 +51,7 @@ class PackageController extends Controller
         $request->validate([
             "title" => "required|sometimes",
         ]);
-        $model = Package::findOrFail($id);
+        $model = Blog::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -61,7 +61,7 @@ class PackageController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Package::findOrFail($id);
+        $model = Blog::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\LinkList;
+use App\Models\Sss;
 use Illuminate\Http\Request;
 
-class LinkListController extends Controller
+class SssController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class LinkListController extends Controller
      */
     public function index()
     {
-        return response()->api(LinkList::all());
+        return response()->api(Sss::all());
     }
 
     /**
@@ -26,7 +26,13 @@ class LinkListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "title" => "required",
+            "content" => "required",
+        ]);
+        $model = new Sss();
+        $model->fill(request()->all())->save();
+        return response()->api($model);
     }
 
     /**
@@ -34,7 +40,7 @@ class LinkListController extends Controller
      */
     public function show(string $id)
     {
-        $model = LinkList::findOrFail($id);
+        $model = Sss::findOrFail($id);
         return response()->api($model);
     }
 
@@ -43,7 +49,13 @@ class LinkListController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            "title" => "sometimes|required",
+            "content" => "sometimes|required",
+        ]);
+        $model = Sss::findOrFail($id);
+        $model->fill(request()->all())->save();
+        return response()->api($model);
     }
 
     /**
@@ -51,7 +63,7 @@ class LinkListController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = LinkList::findOrFail($id);
+        $model = Sss::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Catalog;
+use App\Models\Bulletin;
 use Illuminate\Http\Request;
 
-class CatalogController extends Controller
+class BulletinController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class CatalogController extends Controller
      */
     public function index()
     {
-        return response()->api(Catalog::all());
+        return response()->api(Bulletin::all());
     }
 
     /**
@@ -27,9 +27,9 @@ class CatalogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "title" => "required",
+            "email" => "email|required",
         ]);
-        $model = new Catalog();
+        $model = new Bulletin();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -39,7 +39,7 @@ class CatalogController extends Controller
      */
     public function show(string $id)
     {
-        $model = Catalog::findOrFail($id);
+        $model = Bulletin::findOrFail($id);
         return response()->api($model);
     }
 
@@ -49,9 +49,9 @@ class CatalogController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "title" => "required|sometimes",
+            "email" => "email|required|sometimes",
         ]);
-        $model = Catalog::findOrFail($id);
+        $model = Bulletin::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -61,7 +61,7 @@ class CatalogController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Catalog::findOrFail($id);
+        $model = Bulletin::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

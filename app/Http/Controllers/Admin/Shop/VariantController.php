@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Models\Account;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 
-class AccountController extends Controller
+class VariantController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return response()->api(Account::all());
+        return response()->api(Variant::all());
     }
 
     /**
@@ -27,10 +27,10 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "bank_name" => "required",
             "name" => "required",
+            "category_id" => "required",
         ]);
-        $model = new Account();
+        $model = new Variant();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -40,8 +40,8 @@ class AccountController extends Controller
      */
     public function show(string $id)
     {
-        $model = Account::findOrFail($id);
-        return response()->api($model);
+        $model = Variant::findOrFail($id);
+        return response()->api($model, ["category"]);
     }
 
     /**
@@ -50,10 +50,10 @@ class AccountController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "bank_name" => "sometimes|required",
-            "name" => "sometimes|required",
+            "name" => "required|sometimes",
+            "category_id" => "required|sometimes",
         ]);
-        $model = Account::findOrFail($id);
+        $model = Variant::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -63,7 +63,7 @@ class AccountController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Account::findOrFail($id);
+        $model = Variant::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

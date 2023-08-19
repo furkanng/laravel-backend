@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
+use App\Models\Branch;
 use Illuminate\Http\Request;
 
-class BlogController extends Controller
+class BranchController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return response()->api(Blog::all());
+        return response()->api(Branch::all());
     }
 
     /**
@@ -27,9 +27,10 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "title" => "required",
+            "name" => "required",
+            "address" => "required",
         ]);
-        $model = new Blog();
+        $model = new Branch();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -39,7 +40,7 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        $model = Blog::findOrFail($id);
+        $model = Branch::findOrFail($id);
         return response()->api($model);
     }
 
@@ -49,9 +50,10 @@ class BlogController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "title" => "required|sometimes",
+            "name" => "required|sometimes",
+            "address" => "required|sometimes",
         ]);
-        $model = Blog::findOrFail($id);
+        $model = Branch::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -61,7 +63,7 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Blog::findOrFail($id);
+        $model = Branch::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

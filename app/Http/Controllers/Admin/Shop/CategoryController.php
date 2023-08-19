@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class CategoryController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return response()->api(User::all());
+        return response()->api(Category::all());
     }
 
     /**
@@ -26,8 +26,11 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $model = new User();
-        $model->fill($request->all())->save();
+        $request->validate([
+            "name" => "required",
+        ]);
+        $model = new Category();
+        $model->fill(request()->all())->save();
         return response()->api($model);
     }
 
@@ -36,7 +39,7 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        $model = User::findOrFail($id);
+        $model = Category::findOrFail($id);
         return response()->api($model);
     }
 
@@ -45,7 +48,10 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $model = User::findOrFail($id);
+        $request->validate([
+            "name" => "required|sometimes",
+        ]);
+        $model = Category::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -55,7 +61,7 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = User::findOrFail($id);
+        $model = Category::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

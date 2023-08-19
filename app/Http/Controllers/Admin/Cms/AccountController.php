@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bulletin;
-use App\Models\Sss;
+use App\Models\Account;
 use Illuminate\Http\Request;
 
-class SssController extends Controller
+class AccountController extends Controller
 {
     public function __construct()
     {
@@ -19,7 +18,7 @@ class SssController extends Controller
      */
     public function index()
     {
-        return response()->api(Sss::all());
+        return response()->api(Account::all());
     }
 
     /**
@@ -28,10 +27,10 @@ class SssController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "title" => "required",
-            "content" => "required",
+            "bank_name" => "required",
+            "name" => "required",
         ]);
-        $model = new Sss();
+        $model = new Account();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -41,7 +40,7 @@ class SssController extends Controller
      */
     public function show(string $id)
     {
-        $model = Sss::findOrFail($id);
+        $model = Account::findOrFail($id);
         return response()->api($model);
     }
 
@@ -51,10 +50,10 @@ class SssController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "title" => "sometimes|required",
-            "content" => "sometimes|required",
+            "bank_name" => "sometimes|required",
+            "name" => "sometimes|required",
         ]);
-        $model = Sss::findOrFail($id);
+        $model = Account::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -64,7 +63,7 @@ class SssController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Sss::findOrFail($id);
+        $model = Account::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

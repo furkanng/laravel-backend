@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Reference;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
-class ReferenceController extends Controller
+class ServiceController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class ReferenceController extends Controller
      */
     public function index()
     {
-        return response()->api(Reference::all());
+        return response()->api(Service::all());
     }
 
     /**
@@ -28,8 +28,9 @@ class ReferenceController extends Controller
     {
         $request->validate([
             "title" => "required",
+            "content" => "required",
         ]);
-        $model = new Reference();
+        $model = new Service();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -39,7 +40,7 @@ class ReferenceController extends Controller
      */
     public function show(string $id)
     {
-        $model = Reference::findOrFail($id);
+        $model = Service::findOrFail($id);
         return response()->api($model);
     }
 
@@ -50,8 +51,9 @@ class ReferenceController extends Controller
     {
         $request->validate([
             "title" => "required|sometimes",
+            "content" => "required|sometimes",
         ]);
-        $model = Reference::findOrFail($id);
+        $model = Service::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -61,7 +63,7 @@ class ReferenceController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Reference::findOrFail($id);
+        $model = Service::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

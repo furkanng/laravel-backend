@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class PagesController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        return response()->api(Brand::all());
+        return response()->api(Page::all());
     }
 
     /**
@@ -27,9 +27,9 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "name" => "required",
+            "title" => "required",
         ]);
-        $model = new Brand();
+        $model = new Page();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -39,7 +39,7 @@ class BrandController extends Controller
      */
     public function show(string $id)
     {
-        $model = Brand::findOrFail($id);
+        $model = Page::findOrFail($id);
         return response()->api($model);
     }
 
@@ -49,9 +49,9 @@ class BrandController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "name" => "required|sometimes",
+            "title" => "required|sometimes",
         ]);
-        $model = Brand::findOrFail($id);
+        $model = Page::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -61,7 +61,7 @@ class BrandController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Brand::findOrFail($id);
+        $model = Page::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

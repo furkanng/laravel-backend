@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bulletin;
-use Carbon\Carbon;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
-class BulletinController extends Controller
+class BrandController extends Controller
 {
     public function __construct()
     {
@@ -19,7 +18,7 @@ class BulletinController extends Controller
      */
     public function index()
     {
-        return response()->api(Bulletin::all());
+        return response()->api(Brand::all());
     }
 
     /**
@@ -28,9 +27,9 @@ class BulletinController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "email" => "email|required",
+            "name" => "required",
         ]);
-        $model = new Bulletin();
+        $model = new Brand();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -40,7 +39,7 @@ class BulletinController extends Controller
      */
     public function show(string $id)
     {
-        $model = Bulletin::findOrFail($id);
+        $model = Brand::findOrFail($id);
         return response()->api($model);
     }
 
@@ -50,9 +49,9 @@ class BulletinController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "email" => "email|required|sometimes",
+            "name" => "required|sometimes",
         ]);
-        $model = Bulletin::findOrFail($id);
+        $model = Brand::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -62,7 +61,7 @@ class BulletinController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Bulletin::findOrFail($id);
+        $model = Brand::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

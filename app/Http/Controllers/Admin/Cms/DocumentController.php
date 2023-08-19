@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Service;
+use App\Models\Document;
 use Illuminate\Http\Request;
 
-class ServiceController extends Controller
+class DocumentController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return response()->api(Service::all());
+        return response()->api(Document::all());
     }
 
     /**
@@ -28,9 +28,8 @@ class ServiceController extends Controller
     {
         $request->validate([
             "title" => "required",
-            "content" => "required",
         ]);
-        $model = new Service();
+        $model = new Document();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -40,7 +39,7 @@ class ServiceController extends Controller
      */
     public function show(string $id)
     {
-        $model = Service::findOrFail($id);
+        $model = Document::findOrFail($id);
         return response()->api($model);
     }
 
@@ -51,9 +50,8 @@ class ServiceController extends Controller
     {
         $request->validate([
             "title" => "required|sometimes",
-            "content" => "required|sometimes",
         ]);
-        $model = Service::findOrFail($id);
+        $model = Document::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -63,7 +61,7 @@ class ServiceController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Service::findOrFail($id);
+        $model = Document::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }
