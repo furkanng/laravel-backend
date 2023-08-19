@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\Setting\ContactController;
 use App\Http\Controllers\Admin\Setting\EmailController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Setting\SocialMediaController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SssController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\VariantCategoryController;
@@ -51,6 +52,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/blog', BlogController::class);
     Route::resource('/branch', BranchController::class);
     Route::resource('/brand', BrandController::class);
+    Route::resource('/slider', SliderController::class);
     Route::resource('/catalog', CatalogController::class);
     Route::resource('/comment', CommentController::class);
     Route::resource('/customer', CustomerController::class);
