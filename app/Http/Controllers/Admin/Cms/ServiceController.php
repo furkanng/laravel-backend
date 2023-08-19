@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Variant;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
-class VariantController extends Controller
+class ServiceController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class VariantController extends Controller
      */
     public function index()
     {
-        return response()->api(Variant::all());
+        return response()->api(Service::all());
     }
 
     /**
@@ -27,10 +27,10 @@ class VariantController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "name" => "required",
-            "category_id" => "required",
+            "title" => "required",
+            "content" => "required",
         ]);
-        $model = new Variant();
+        $model = new Service();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -40,8 +40,8 @@ class VariantController extends Controller
      */
     public function show(string $id)
     {
-        $model = Variant::findOrFail($id);
-        return response()->api($model, ["category"]);
+        $model = Service::findOrFail($id);
+        return response()->api($model);
     }
 
     /**
@@ -50,10 +50,10 @@ class VariantController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "name" => "required|sometimes",
-            "category_id" => "required|sometimes",
+            "title" => "required|sometimes",
+            "content" => "required|sometimes",
         ]);
-        $model = Variant::findOrFail($id);
+        $model = Service::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -63,7 +63,7 @@ class VariantController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Variant::findOrFail($id);
+        $model = Service::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

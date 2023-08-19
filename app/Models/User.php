@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ImageTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, ImageTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -18,12 +19,12 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        "id",
         'name',
         'surname',
         'email',
         'password',
         'phone',
+        'image',
         'status',
         'birth_date',
         'created_at',
@@ -51,12 +52,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTIdentifier()
     {
-       return $this->getKey();
+        return $this->getKey();
     }
 
     public function getJWTCustomClaims()
     {
-       return [];
+        return [];
     }
 
     public function order()

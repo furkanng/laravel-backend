@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->increments("id");
-            $table->string("email")->unique();
+            $table->string("email");
             $table->integer("user_id")->unsigned();
             $table->string("name");
             $table->string("surname");
@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string("city");
             $table->string("district");
             $table->string("title")->nullable();
-            $table->string("invoice_type")->nullable();
+            $table->string("invoice_type");
             $table->string("tax_number")->nullable();
             $table->string("tax_area")->nullable();
             $table->string("company_name")->nullable();

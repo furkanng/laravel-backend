@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('slider', function (Blueprint $table) {
             $table->increments("id");
-            $table->string('title')->nullable();
-            $table->json('image')->nullable();
+            $table->string('title');
+            $table->string('image')->nullable();
             $table->string('url')->nullable();
             $table->integer('position')->nullable();
             $table->boolean('status')->default(true);

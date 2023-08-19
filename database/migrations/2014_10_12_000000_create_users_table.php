@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('phone')->nullable();
             $table->boolean('status')->default(true);
             $table->date('birth_date')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

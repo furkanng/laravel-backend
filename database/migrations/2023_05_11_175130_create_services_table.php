@@ -12,10 +12,10 @@ return new class extends Migration {
     {
         Schema::create('services', function (Blueprint $table) {
             $table->increments("id");
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
+            $table->string('title');
+            $table->text('content');
             $table->string('image')->nullable();
-            $table->string("url")->nullable();
+            $table->string("seo_link")->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

@@ -2,21 +2,19 @@
 
 namespace App\Models;
 
+use App\Traits\ImageTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Catalog extends Model
 {
-    use HasFactory;
+    use HasFactory, ImageTrait;
 
-    protected $primaryKey = "id";
     protected $table = "catalog";
 
     protected $fillable = [
-        "id",
         "title",
         "image",
-        "document",
         "status",
     ];
 

@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('references', function (Blueprint $table) {
             $table->increments("id");
-            $table->string('title')->nullable();
+            $table->string('title');
             $table->string('image')->nullable();
-            $table->string("url")->nullable();
+            $table->string("seo_link");
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

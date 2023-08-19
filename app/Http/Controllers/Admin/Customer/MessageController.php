@@ -1,26 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class MessageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->api(Message::all());
     }
 
     /**
@@ -28,7 +26,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -36,15 +34,8 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $model = Message::findOrFail($id);
+        return response()->api($model);
     }
 
     /**
@@ -52,7 +43,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**
@@ -60,6 +51,8 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $model = Message::findOrFail($id);
+        $model->delete();
+        return response()->api($model);
     }
 }

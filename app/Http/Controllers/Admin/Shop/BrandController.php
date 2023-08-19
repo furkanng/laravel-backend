@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class BrandController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->api(Category::all());
+        return response()->api(Brand::all());
     }
 
     /**
@@ -29,7 +29,7 @@ class CategoryController extends Controller
         $request->validate([
             "name" => "required",
         ]);
-        $model = new Category();
+        $model = new Brand();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -39,7 +39,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        $model = Category::findOrFail($id);
+        $model = Brand::findOrFail($id);
         return response()->api($model);
     }
 
@@ -51,7 +51,7 @@ class CategoryController extends Controller
         $request->validate([
             "name" => "required|sometimes",
         ]);
-        $model = Category::findOrFail($id);
+        $model = Brand::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -61,7 +61,7 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Category::findOrFail($id);
+        $model = Brand::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

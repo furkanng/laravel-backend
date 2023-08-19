@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Cms;
 
 use App\Http\Controllers\Controller;
-use App\Models\Page;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
-class PagesController extends Controller
+class SliderController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        return response()->api(Page::all());
+        return response()->api(Slider::all());
     }
 
     /**
@@ -29,7 +29,7 @@ class PagesController extends Controller
         $request->validate([
             "title" => "required",
         ]);
-        $model = new Page();
+        $model = new Slider();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -39,7 +39,7 @@ class PagesController extends Controller
      */
     public function show(string $id)
     {
-        $model = Page::findOrFail($id);
+        $model = Slider::findOrFail($id);
         return response()->api($model);
     }
 
@@ -51,7 +51,7 @@ class PagesController extends Controller
         $request->validate([
             "title" => "required|sometimes",
         ]);
-        $model = Page::findOrFail($id);
+        $model = Slider::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -61,7 +61,7 @@ class PagesController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Page::findOrFail($id);
+        $model = Slider::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

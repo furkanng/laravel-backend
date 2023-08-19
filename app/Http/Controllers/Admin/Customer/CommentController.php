@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Models\Bulletin;
-use App\Models\Sss;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
-class SssController extends Controller
+class CommentController extends Controller
 {
     public function __construct()
     {
@@ -19,7 +18,7 @@ class SssController extends Controller
      */
     public function index()
     {
-        return response()->api(Sss::all());
+        return response()->api(Comment::all());
     }
 
     /**
@@ -27,13 +26,7 @@ class SssController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "title" => "required",
-            "content" => "required",
-        ]);
-        $model = new Sss();
-        $model->fill(request()->all())->save();
-        return response()->api($model);
+        //
     }
 
     /**
@@ -41,7 +34,7 @@ class SssController extends Controller
      */
     public function show(string $id)
     {
-        $model = Sss::findOrFail($id);
+        $model = Comment::findOrFail($id);
         return response()->api($model);
     }
 
@@ -50,13 +43,7 @@ class SssController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            "title" => "sometimes|required",
-            "content" => "sometimes|required",
-        ]);
-        $model = Sss::findOrFail($id);
-        $model->fill(request()->all())->save();
-        return response()->api($model);
+        //
     }
 
     /**
@@ -64,7 +51,7 @@ class SssController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Sss::findOrFail($id);
+        $model = Comment::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }
