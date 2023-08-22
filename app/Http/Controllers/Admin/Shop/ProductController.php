@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Models\SubSubCategory;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class SubSubCategoryController extends Controller
+class ProductController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class SubSubCategoryController extends Controller
      */
     public function index()
     {
-        return response()->api(SubSubCategory::all());
+        return response()->api(Product::all());
     }
 
     /**
@@ -28,9 +28,9 @@ class SubSubCategoryController extends Controller
     {
         $request->validate([
             "name" => "required",
-            "sub_category_id" => "required",
+            "category_id" => "required",
         ]);
-        $model = new SubSubCategory();
+        $model = new Product();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -40,8 +40,8 @@ class SubSubCategoryController extends Controller
      */
     public function show(string $id)
     {
-        $model = SubSubCategory::findOrFail($id);
-        return response()->api($model, ["subcategory"]);
+        $model = Product::findOrFail($id);
+        return response()->api($model, ["subsubcategory", "category", "subcategory", "brand", "images"]);
     }
 
     /**
@@ -51,9 +51,9 @@ class SubSubCategoryController extends Controller
     {
         $request->validate([
             "name" => "required|sometimes",
-            "sub_category_id" => "required|sometimes",
+            "category_id" => "required|sometimes",
         ]);
-        $model = SubSubCategory::findOrFail($id);
+        $model = Product::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -63,7 +63,7 @@ class SubSubCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = SubSubCategory::findOrFail($id);
+        $model = Product::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }
