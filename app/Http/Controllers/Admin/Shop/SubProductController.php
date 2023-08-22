@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\SubProduct;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class SubProductController extends Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->api(Category::all());
+        return response()->api(SubProduct::all());
     }
 
     /**
@@ -27,9 +27,9 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "name" => "required",
+            "product_id" => "required",
         ]);
-        $model = new Category();
+        $model = new SubProduct();
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -39,8 +39,8 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        $model = Category::findOrFail($id);
-        return response()->api($model, ["subcategory"]);
+        $model = SubProduct::findOrFail($id);
+        return response()->api($model);
     }
 
     /**
@@ -49,9 +49,9 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            "name" => "required|sometimes",
+            "product_id" => "required|sometimes",
         ]);
-        $model = Category::findOrFail($id);
+        $model = SubProduct::findOrFail($id);
         $model->fill(request()->all())->save();
         return response()->api($model);
     }
@@ -61,7 +61,7 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $model = Category::findOrFail($id);
+        $model = SubProduct::findOrFail($id);
         $model->delete();
         return response()->api($model);
     }

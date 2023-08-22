@@ -14,8 +14,6 @@ return new class extends Migration {
             $table->foreign("category_id")->references("id")->on("categories");
             $table->foreign("subcategory_id")->references("id")->on("sub_categories");
             $table->foreign("sub_subcategory_id")->references("id")->on("sub_sub_categories");
-            $table->foreign("variant_category_id")->references("id")->on("variant_categories");
-            $table->foreign("variant_id")->references("id")->on("variants");
             $table->foreign("brand_id")->references("id")->on("brands");
         });
     }

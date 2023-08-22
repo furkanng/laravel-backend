@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->increments("id");
             $table->string("name")->nullable();
             $table->integer("sub_category_id")->unsigned();
-            $table->integer("brands")->unsigned();//TOOD: DÜŞÜN BUNU
             $table->string("seo_link")->nullable();
             $table->string("seo_title")->nullable();
             $table->string("seo_description")->nullable();
