@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\Shop\CategoryController;
 use App\Http\Controllers\Admin\Shop\ProductController;
 use App\Http\Controllers\Admin\Shop\ProductImageController;
 use App\Http\Controllers\Admin\Shop\SubCategoryController;
+use App\Http\Controllers\Admin\Shop\SubProductController;
 use App\Http\Controllers\Admin\Shop\SubSubCategoryController;
 use App\Http\Controllers\Admin\Shop\VariantCategoryController;
 use App\Http\Controllers\Admin\Shop\VariantController;
@@ -71,6 +72,7 @@ Route::prefix('admin')->middleware("admin-api")->group(function () {
     Route::resource('/variant', VariantController::class);
     Route::resource('/variant-category', VariantCategoryController::class);
     Route::resource('/product', ProductController::class);
+    Route::resource('/sub-product', SubProductController::class);
     Route::resource('/product-image', ProductImageController::class);
     Route::prefix("setting")->group(function () {
         Route::resource('/', SettingController::class)->only("index", "store");
