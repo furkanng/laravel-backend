@@ -15,10 +15,6 @@ return new class extends Migration {
             $table->integer("product_id")->unsigned();
             $table->string("variant_1")->nullable();
             $table->string("variant_2")->nullable();
-            $table->string("seo_link");
-            $table->string("seo_title")->nullable();
-            $table->string("seo_description")->nullable();
-            $table->string("seo_keywords")->nullable();
             $table->string("code")->nullable();
             $table->double("price")->nullable();
             $table->integer("stock")->nullable();
