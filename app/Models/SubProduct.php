@@ -15,14 +15,15 @@ class SubProduct extends Model
         "product_id",
         "variant_1",
         "variant_2",
-        "seo_link",
-        "seo_title",
-        "seo_description",
-        "seo_keywords",
         "code",
         "price",
         "stock",
         "unit",
         "status",
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, "product_id", "id");
+    }
 }
