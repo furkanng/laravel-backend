@@ -40,7 +40,7 @@ class SubProductController extends Controller
     public function show(string $id)
     {
         $model = SubProduct::findOrFail($id);
-        return response()->api($model);
+        return response()->api($model, ["product"]);
     }
 
     /**
