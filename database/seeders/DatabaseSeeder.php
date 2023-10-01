@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             SettingSeeder::class,
+            SubSubCategorySeeder::class,
+            SubCategorySeeder::class,
+            CategorySeeder::class,
 
         ]);
     }

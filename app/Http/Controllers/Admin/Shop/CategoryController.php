@@ -28,6 +28,7 @@ class CategoryController extends Controller
     {
         $request->validate([
             "name" => "required",
+            "image" => "max:1000"
         ]);
         $model = new Category();
         $model->fill(request()->all())->save();
