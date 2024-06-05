@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('bank_name')->nullable();
             $table->string('name')->nullable();
             $table->string('image')->nullable();
+            $table->string('image_url')->nullable();
             $table->string('account_number')->nullable();
             $table->string('branch_name')->nullable();
             $table->string('iban')->nullable();

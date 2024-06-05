@@ -5,8 +5,6 @@ namespace App\Traits;
 use App\Models\LinkList;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use mysql_xdevapi\Exception;
-use function Laravel\Prompts\error;
 
 trait SeoTrait
 {

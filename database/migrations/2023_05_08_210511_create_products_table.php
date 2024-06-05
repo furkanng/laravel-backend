@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->string("tags")->nullable();
             $table->text("content")->nullable();
             $table->string("image")->nullable();
+            $table->string("image_url")->nullable();
             $table->boolean("new_product")->nullable();
             $table->boolean("home_product")->nullable();
             $table->string("spot_text")->nullable();

@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->increments("id");
             $table->string('title');
             $table->string('image')->nullable();
+            $table->string('image_url')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

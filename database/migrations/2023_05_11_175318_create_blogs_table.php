@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('content')->nullable();
             $table->string('image')->nullable();
+            $table->string('image_url')->nullable();
             $table->string("seo_link")->nullable();
             $table->string("seo_title")->nullable();
             $table->string("seo_description")->nullable();

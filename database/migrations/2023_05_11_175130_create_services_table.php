@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('title');
             $table->text('content');
             $table->string('image')->nullable();
+            $table->string('image_url')->nullable();
             $table->string("seo_link")->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();

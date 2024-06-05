@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->increments("id");
             $table->string("name");
             $table->string("image")->nullable();
+            $table->string("image_url")->nullable();
             $table->boolean("showcase")->nullable();
             $table->string("seo_link")->nullable();
             $table->string("seo_title")->nullable();
